@@ -3,8 +3,10 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
-function Login() {
-    return ( <h1 className={cx('heading')}>This is Login page.</h1> );
+function Login(){
+    return (
+        <h1>Login page</h1>
+    )
 }
 
 export default Login;
