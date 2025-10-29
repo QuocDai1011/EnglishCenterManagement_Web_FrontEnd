@@ -16,7 +16,7 @@ function Sidebar() {
             id: 2,
             image: '/images/speaker.png',
             label: 'Tường nhà trường',
-            link: '/school',
+            link: '/groups',
         },
         {
             id: 3,
@@ -46,7 +46,7 @@ function Sidebar() {
             id: 7,
             image: '/images/myDrive.png',
             label: 'Drive của tôi',
-            link: '/drive',
+            link: '/my-drive',
         },
     ];
 
@@ -56,31 +56,31 @@ function Sidebar() {
             id: 1,
             image: '/images/myCalendar.png',
             label: 'Lịch cá nhân',
-            link: '/personal-calendar',
+            link: '/calendar',
         },
         {
             id: 2,
             image: '/images/task.png',
             label: 'Nhiệm vụ cá nhân',
-            link: '/personal-tasks',
+            link: '/tasks',
         },
         {
             id: 3,
             image: '/images/Receipt.png',
             label: 'Hóa đơn',
-            link: '/bill',
+            link: '/invoices',
         },
         {
             id: 4,
             image: '/images/order.png',
             label: 'Đơn hàng',
-            link: '/Order',
+            link: '/orders',
         },
         {
             id: 5,
             image: '/images/takeOff.png',
             label: 'Xin nghỉ',
-            link: '/Takeoff',
+            link: '/absenteeism',
         },
         {
             id: 6,
@@ -93,7 +93,7 @@ function Sidebar() {
             id: 7,
             image: '/images/timeSheet.png',
             label: 'Bảng chấm công',
-            link: '/TimeSheet',
+            link: '/timesheets',
         }
     ]
     return (

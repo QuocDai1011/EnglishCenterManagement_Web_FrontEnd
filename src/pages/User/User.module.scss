@@ -1,28 +1,37 @@
-
-.container{
-    display: flex;
-    width: calc(100% + 8px);
-    margin-left: -8px;
-    flex-wrap: wrap;
-    height: 100%;
-    margin-top: 50px;
-    position: relative;
-
-    .main{
-    padding-top: 8px;
-        padding-left: 8px;
-        height: calc(100% - 8px);
-        overflow-y: auto;
-        overflow-x: hidden;
-        width: 100%;
+.container {
         display: flex;
+        // width: calc(100% + 8px);
         flex-wrap: wrap;
-        margin: 0px;
-        flex-basis: 83.3333%;
-        -webkit-box-flex: 0;
-        flex-grow: 0;
-        max-width: 83.3333%;
-        position: fixed;
-        right: 0;
-}
+        height: 100%;
+        position: relative;
+        margin: 50px auto;
+        .main {
+                padding-top: 8px;
+                padding-left: 8px;
+                height: calc(100% - 8px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0px;
+                flex-basis: 83.3333%;
+                -webkit-box-flex: 0;
+                flex-grow: 0;
+                max-width: 83.3333%;
+                position: fixed;
+                right: 0;
+
+                .profile-card {
+                        width: 100%;
+                        position: relative !important;
+                        z-index: 99;
+                        .profile-card__inner {
+                                width: 85%;
+                                margin: 0 auto;
+                                
+
+                        }
+                }
+        }
 }

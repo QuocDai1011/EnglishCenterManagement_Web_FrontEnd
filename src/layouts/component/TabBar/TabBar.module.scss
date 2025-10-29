@@ -1,0 +1,85 @@
+.tabsWrapper {
+    width: 100%;
+
+    .tabsHeader {
+        background-color: white;
+        border-top: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .tabsList {
+            display: flex;
+            width: 100%;
+
+            .tabButton {
+                padding: 1rem 1.8rem;
+                font-size: 1.4rem;
+                font-weight: 600;
+                background: none;
+                border: none;
+                cursor: pointer;
+                position: relative;
+                transition: color 0.2s;
+                color: #6b7280;
+                width: 100%;
+                overflow: hidden;
+                transition: color 0.3s ease;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: radial-gradient(
+                        circle,
+                        rgba(37, 99, 235, 0.25) 0%,
+                        rgba(37, 99, 235, 0.1) 40%,
+                        rgba(37, 99, 235, 0) 70%
+                    );
+                    transform: translate(-50%, -50%);
+                    transition: width 0.6s ease-in-out, height 0.6s ease-in-out, opacity 0.6s ease-in-out;
+                    pointer-events: none;
+                    opacity: 0;
+                }
+
+                &.active {
+                    border-bottom: 2px solid #3f51b5;
+                    color: #3f51b5;
+
+                    &::before {
+                        animation: ripple 0.6s ease-out forwards;
+                    }
+                }
+            }
+
+            @keyframes ripple {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 1;
+                }
+
+                100% {
+                    width: 350%;
+                    height: 350%;
+                    opacity: 0;
+                }
+            }
+        }
+
+        .menuButton {
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.12);
+            }
+        }
+    }
+}

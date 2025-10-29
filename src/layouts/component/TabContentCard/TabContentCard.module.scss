@@ -1,0 +1,139 @@
+.container {
+    width: 100%;
+
+    .card {
+        width: 100%;
+        border-radius: 10px;
+        height: auto;
+        text-align: left;
+        margin: 15px 0 15px 15px;
+        background-color: #fff;
+
+        .cardTitle {
+            color: #000000de;
+            padding: 10px;
+            font-weight: bold;
+            padding-bottom: 0;
+            font-size: 2.4rem;
+        }
+        .infoList {
+            padding: 8px 0px;
+            .infoItem {
+                color: rgba(0, 0, 0, 0.6);
+
+                li {
+                    display: flex;
+                    gap: 10px;
+                    padding: 2px 16px;
+                }
+            }
+        }
+    }
+
+    .filemedia-card {
+        width: 100%;
+        border-radius: 10px;
+        height: auto;
+        text-align: left;
+        margin: 15px 0 15px 15px;
+        background-color: #fff;
+
+        .cardTitle {
+            color: #000000de;
+            padding: 10px;
+            font-weight: bold;
+            padding-bottom: 0;
+            font-size: 2.4rem;
+        }
+
+        .wrap-content {
+            display: flex;
+            overflow: hidden;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            background-color: #fff;
+            border-radius: 10px;
+
+            .list-item {
+                display: grid;
+                overflow-y: auto;
+                list-style: none;
+                padding: 0px;
+                width: 100%;
+                height: 460px;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 4px;
+            }
+        }
+
+        .no-data {
+            margin-top: 20px;
+
+            .wrapper {
+                text-align: center;
+                padding: 40px 0px;
+
+                .wrap-icon {
+                    opacity: 0.5;
+                    display: flex;
+                    justify-content: center;
+                    position: relative;
+                        
+
+                    span{
+
+                        &::before{
+                            content: '';
+                            position: absolute;
+                            top: 60%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 130px;
+                            height:140px;
+                            border-radius: 10px;
+                            background-color: #adaaaa;
+                            border: 2px solid #ccc;
+                            z-index: -1;
+                        }
+                    }
+
+                    .icon{
+                        color: white;
+                        background-color: black;
+                        padding: 10px;
+                        width: 100px;
+                        height:80px;
+                    }
+                    
+                }
+
+                .title {
+                    opacity: 0.7;
+                    font-weight: bold;
+                    font-size: 2.4rem;
+                    margin-top: 60px;
+                }
+            }
+        }
+    }
+
+    .customCard {
+        margin: 15px 0px !important;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+        .infoList {
+            margin-top: 20px;
+            li {
+                font-size: 16px;
+                padding: 8px 16px !important;
+                color: black;
+                .icon {
+                    color: #828282 !important;
+                    font-size: 2.5rem;
+                    min-width: 40px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}
