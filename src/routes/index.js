@@ -1,6 +1,7 @@
 import Login from '~/pages/Login';
 import Admin from '~/pages/Admin';
-import User from '~/pages/User'
+import User from '~/pages/User';
+import MyClass from '~/pages/MyClass';
 import { DefaultLayout, HeaderOnly } from '~/layouts';
 import Student from '~/pages/Student';
 import Groups from '~/pages/Groups'
@@ -10,7 +11,7 @@ const publicRoutes = [
     { path: '/user', component: User, layout: HeaderOnly},
     { path: '/groups', component: Groups, layout: HeaderOnly},
     { path: '/student', component: Student, layout: HeaderOnly},
-    // { path: '/marketplace', component: Marketplace, layout: HeaderOnly},
+    { path: '/class', component: MyClass, layout: HeaderOnly},
     // { path: '/events', component: Events, layout: HeaderOnly},
     // { path: '/my-drive', component: MyDrive, layout: HeaderOnly},
     // { path: '/calendar', component: Calendar, layout: HeaderOnly},

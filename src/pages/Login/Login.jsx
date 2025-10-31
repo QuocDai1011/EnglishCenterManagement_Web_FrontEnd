@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 function Login(){
     return (
-        <h1>Login page</h1>
+        <h1 className='flex'>Login page</h1>
     )
 }
 

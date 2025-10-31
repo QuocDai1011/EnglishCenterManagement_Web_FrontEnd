@@ -40,13 +40,13 @@ function Sidebar() {
             id: 6,
             image: '/images/myClass.png',
             label: 'Lớp học của tôi',
-            link: '/student',
+            link: '/class',
         },
         {
             id: 7,
-            image: '/images/myDrive.png',
-            label: 'Drive của tôi',
-            link: '/my-drive',
+            image: '/images/group.png',
+            label: 'Danh sách sinh viên',
+            link: '/student',
         },
     ];
 

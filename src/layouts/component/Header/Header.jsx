@@ -30,7 +30,7 @@ import React, { useState } from 'react'; // Thêm useState
 import Dropdown from '~/layouts/component/Dropdown/Dropdown';
 import { ChevronDown, ChevronLeft } from 'lucide-react';
 import { Link,useLocation } from 'react-router-dom';
-
+import Post from '~/layouts/component/Post';
 const cx = classNames.bind(styles);
 
 const iconBtn = [
@@ -71,7 +71,12 @@ function Header() {
             icon: <FaEdit size={26} style={{ color: '#828282' }} />,
             title: 'Tạo bài viết',
             description: 'Chia sẻ bài viết lên bảng tin',
-            onClick: () => console.log('Create post'),
+            onClick: () => (
+                <>
+                console.log('post click');
+            <Post />
+            </>
+            ),
         },
         {
             id: 'event',
@@ -652,7 +657,6 @@ function Header() {
                             items={iconPlusItems}
                             width="medium"
                         />
-
                         {/* Container cho Grid Dropdown và Quick Add */}
                         <div style={{ position: 'relative', display: 'inline-block' }}>
                             {/* Quick Add Dropdown */}
