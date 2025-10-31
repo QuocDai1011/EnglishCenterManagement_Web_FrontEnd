@@ -1,0 +1,216 @@
+.dropdown-menu {
+    display: grid;
+    background-color: rgb(255, 255, 255);
+    top: 50px !important;
+    width: 25%;
+    overflow-x: hidden !important;
+    max-height: 100vh;
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+    scrollbar-width: thin;
+    border: none;
+    padding: 8px 0;
+    left: 1130px !important;
+    // position: relative;
+    &:focus-visible {
+        outline: none;
+        border: none;
+
+    }
+
+    &::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    ::-webkit-scrollbar-button {
+        display: none;
+    }
+
+    .dropdown-item {
+        display: inline-flex;
+        // margin: 10px 5px;
+        padding: 8px 16px;
+        width: 100%;
+        align-items: center;
+        text-align: left;
+        // position: relative;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgb(224, 224, 224) !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 10px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                object-fit: cover;
+            }
+        }
+
+        .item-content {
+            .item-title {
+                font-size: 15px;
+                font-weight: 600;
+                color: black;
+            }
+
+            .item-description {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.43;
+                letter-spacing: 0.01071em;
+                color: rgba(0, 0, 0, 0.6);
+                display: block;
+            }
+        }
+
+        .item-right-icon {
+            position: absolute;
+            right: 10px;
+        }
+    }
+}
+
+.width-xlarge {
+    grid-template-columns: 1fr 1fr;
+    /* chia 2 cột bằng nhau */
+    gap: 10px;
+    /* khoảng cách giữa 2 cột */
+    width: 50%;
+    left: 750px !important;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+
+    .dropdown-item {
+        border-radius: 10px;
+        height: 100%;
+        width: 95%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 8px;
+        margin-left: 8px;
+
+
+        .item-icon {
+            background-color: transparent !important;
+
+        }
+
+        .item-content {
+
+
+            .item-title {}
+
+            .item-description {
+                font-size: 13px;
+            }
+        }
+    }
+}
+
+.width-medium {
+    padding: 10px;
+    border-radius: 5px;
+    .dropdown-item {
+        border-radius: 10px;
+    }
+
+    .dropdown-divider {
+        margin-top: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+}
+.width-small {
+    width: 15%;
+    left: 1280px !important;
+    padding: 8px;
+    border-radius: 5px;
+
+    .dropdown-item {
+        border-radius: 10px;
+    }
+
+}
+
+// Dropdown.module.scss
+
+.submenu-container {
+    width: 100%;
+    position: relative;
+}
+
+.dropdown-item {
+    &.has-submenu {
+        position: relative;
+        cursor: pointer;
+
+        .item-right-icon {
+            transition: transform 0.2s ease;
+
+            &.rotated {
+                transform: rotate(180deg); // Hoặc -90deg tùy icon
+            }
+        }
+    }
+
+    &.submenu-open {
+        background-color: #f5f5f5; // Highlight khi submenu mở
+    }
+}
+
+.submenu-items {
+    width: 100%;
+    background: #f9f9f9;
+
+
+    .submenu-item {
+        background: transparent;
+        width: 100%;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+
+        .item-content {
+            width: 80%;
+        }
+    }
+}
+
+.dropdown-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.dropdown-header0{
+    display: inline-block !important;
+        justify-content: left !important ;
+}
+.static-menu {
+    position: relative !important;
+    display: block !important;
+    margin-top: 0 !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    background: white;
+}
+
+.always-open {
+    position: relative;
+}
+
+

@@ -1,0 +1,71 @@
+.sidebar{
+    width: 100% !important;
+    height: 100%;
+    color: #000000DE;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    position: fixed;
+    left: 0;
+    top: 50px;
+    flex-shrink: 0;
+    min-height: calc(100vh + 1px);
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0px;
+    flex-basis: 16.6667%;
+    -webkit-box-flex: 0;
+    flex-grow: 0;
+    max-width: 16.6667%;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: transparent; // ✅ Trong suốt mặc định
+        border-radius: 4px;
+    }
+    
+    // ✅ Khi hover vào sidebar: Hiện thanh cuộn
+    &:hover::-webkit-scrollbar-thumb {
+        background: #bcc0c4;
+    }
+    
+    // ✅ Khi hover vào chính thanh cuộn
+    &::-webkit-scrollbar-thumb:hover {
+        background: #8a8d91;
+    }
+    
+    // ✅ Cho Firefox (chỉ hiện khi hover)
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    
+    &:hover {
+        scrollbar-color: #bcc0c4 transparent;
+    }
+
+    .sidebar-inner{
+        width: 100%;
+        position: relative;
+        padding: 8px 0px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);;
+
+    }
+    .shortcut-label{
+       color: #65676b;
+        margin: 18px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .shortcut-sidebar{
+        width: 100%;
+        position: relative;
+        padding: 8px 0px;
+    }
+}
