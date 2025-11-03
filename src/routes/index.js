@@ -4,13 +4,17 @@ import User from '~/pages/User';
 import MyClass from '~/pages/MyClass';
 import { DefaultLayout, HeaderOnly } from '~/layouts';
 import Student from '~/pages/Student';
-import Groups from '~/pages/Groups'
+import AddStudent from '~/pages/Student/AddStudent';
+
+import Groups from '~/pages/Groups';
+
 const publicRoutes = [
     { path: '/', component: Login, layout: null},
     { path: '/admin', component: Admin, layout: HeaderOnly},
     { path: '/user', component: User, layout: HeaderOnly},
     { path: '/groups', component: Groups, layout: HeaderOnly},
     { path: '/student', component: Student, layout: HeaderOnly},
+    { path: '/student/add', component: AddStudent, layout: null},
     { path: '/class', component: MyClass, layout: HeaderOnly},
     // { path: '/events', component: Events, layout: HeaderOnly},
     // { path: '/my-drive', component: MyDrive, layout: HeaderOnly},

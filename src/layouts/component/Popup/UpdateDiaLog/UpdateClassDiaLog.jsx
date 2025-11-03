@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, BookOpen, Save, AlertCircle } from 'lucide-react';
 import MyClassService from '~/api/MyClassService';
+import Swal from 'sweetalert2';
 
 const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
   const [formData, setFormData] = useState({
@@ -111,9 +112,14 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
         updateAt: new Date().toISOString().split('T')[0]
       };
 
-      // Giả lập API call
+      // API call
     await MyClassService.updateClass(updateData.classId, updateData);
-
+      Swal.fire({
+        icon: 'success',
+        title: 'Cập nhật thành công!',
+        showConfirmButton: false,
+        timer: 1000
+      })
       // Gọi callback onSave nếu có
       if (onSave) {
         onSave(updateData);
@@ -122,6 +128,12 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
       onClose();
     } catch (error) {
       console.error('Error updating class:', error);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Có lỗi xảy ra khi cập nhật lớp học',
+        timer: 1000,
+        showConfirmButton: false
+      })
       setErrors({ submit: 'Có lỗi xảy ra khi cập nhật lớp học' });
     } finally {
       setLoading(false);

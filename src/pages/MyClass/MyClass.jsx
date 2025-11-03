@@ -117,7 +117,7 @@ function MyClass() {
                             <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
                             <div>
                                 <p className="text-yellow-800 font-medium">Không thể kết nối đến server</p>
-                                <p className="text-yellow-700 text-sm mt-1">Lỗi: {error}</p>
+                                <p className="text-yellow-700 text-xl mt-1">Lỗi: {error}</p>
                             </div>
                         </div>
                     )}
@@ -202,7 +202,7 @@ function MyClass() {
                     {MyClass.length === 0 && !loading && (
                         <div className="text-center py-12">
                             <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                            <p className="text-gray-500 text-lg">Không có lớp học đang hoạt động</p>
+                            <p className="text-gray-500 text-2xl">Không có lớp học đang hoạt động</p>
                         </div>
                     )}
                 <div className="mt-12 flex w-[50%] justify-around items-center">

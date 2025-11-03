@@ -1,2 +1,2 @@
-import UpdateForm from './UpdateForm'
+import UpdateForm from './UpdateStudentDiaLog'
 export default UpdateForm;

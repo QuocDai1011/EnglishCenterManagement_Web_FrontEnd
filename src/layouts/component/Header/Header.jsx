@@ -29,7 +29,7 @@ import { FaRegEnvelope } from 'react-icons/fa6';
 import React, { useState } from 'react'; // Thêm useState
 import Dropdown from '~/layouts/component/Dropdown/Dropdown';
 import { ChevronDown, ChevronLeft } from 'lucide-react';
-import { Link,useLocation } from 'react-router-dom';
+import { Link,useLocation,useNavigate  } from 'react-router-dom';
 import Post from '~/layouts/component/Post';
 const cx = classNames.bind(styles);
 
@@ -175,6 +175,14 @@ function Header() {
     const [showQuickAdd, setShowQuickAdd] = useState(false);
     console.log('showQuickAdd:', showQuickAdd);
     const [isGridMenuOpen, setIsGridMenuOpen] = useState(false);
+
+    const navigate = useNavigate();
+    // Helper function để handle navigation
+    const handleQuickAdd = (path) => {
+        setShowQuickAdd(false); // Đóng menu
+        navigate(path); // Điều hướng đến path
+    };
+
     const quickAddItems = [
         {
             header: (
@@ -223,55 +231,55 @@ function Header() {
             id: 'add-user',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm học viên',
-            onClick: () => console.log('Add user'),
+            path: '/student/add'
         },
         {
             id: 'add-HR',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới nhân sự',
-            onClick: () => console.log('Add HR'),
+            path: '/HR/add'
         },
         {
             id: 'add-receipt',
             icon: <CiReceipt size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới phiếu thu',
-            onClick: () => console.log('Add receipt'),
+            path: '/receipt/add'
         },
         {
             id: 'add-invoice',
             icon: <FaFileInvoiceDollar size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới phiếu chi',
-            onClick: () => console.log('Add invoice'),
+            path: '/invoice/add'
         },
         {
             id: 'add-order',
             icon: <BsCartPlus size={26} style={{ color: '#828282' }} />,
             title: 'Tạo đơn hàng',
-            onClick: () => console.log('Add order'),
+            path: '/order/add'
         },
         {
             id: 'add-schedule',
             icon: <FaBookMedical size={26} style={{ color: '#828282' }} />,
             title: 'Thêm lịch học',
-            onClick: () => console.log('Add schedule'),
+            path: '/schedule/add'
         },
         {
             id: 'add-classroom',
             icon: <FaUsers size={26} style={{ color: '#828282' }} />,
             title: 'Thêm lớp học',
-            onClick: () => console.log('Add classroom'),
+            path: '/classroom/add'
         },
         {
             id: 'add-email',
             icon: <FaRegEnvelope size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới chiến dịch Email',
-            onClick: () => console.log('Add email'),
+            path: '/email/add'
         },
         {
             id: 'add-SMS',
             icon: <FaRegPaperPlane size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới chiến dịch SMS',
-            onClick: () => console.log('Add SMS'),
+            path: '/SMS/add'
         },
     ];
 
@@ -684,6 +692,9 @@ function Header() {
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         item.onClick?.();
+                                                        if(item.path){
+                                                            handleQuickAdd(item.path);
+                                                        }
                                                     }}
                                                     onMouseEnter={(e) =>
                                                         (e.currentTarget.style.backgroundColor = '#f0f2f5')

@@ -2,10 +2,24 @@ import styles from './Student.module.scss';
 import classNames from 'classnames/bind';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import SideBar from '~/layouts/component/Sidebar';
-import { Search, UserCircle, Mail, Phone, MapPin, Calendar, User, Eye, Edit, Delete } from 'lucide-react';
+import {
+    Search,
+    UserCircle,
+    Mail,
+    Phone,
+    MapPin,
+    Calendar,
+    User,
+    Eye,
+    Edit,
+    Delete,
+    RotateCcw,
+    CircleQuestionMark,
+} from 'lucide-react';
 import StudentDetailForm from '~/layouts/component/Popup/DetailDiaLog/StudentDetailForm';
-import UpdateForm from '~/layouts/component/Popup/UpdateDiaLog/UpdateForm';
-
+import UpdateForm from '~/layouts/component/Popup/UpdateDiaLog/UpdateStudentDiaLog';
+import StudentService from '~/api/StudentService';
+import Swal from 'sweetalert2';
 const cx = classNames.bind(styles);
 
 function Student() {
@@ -18,8 +32,6 @@ function Student() {
     const ITEMS_PER_PAGE = 12;
 
     const observerTarget = useRef(null);
-
-    
 
     useEffect(() => {
         fetchStudents();
@@ -44,10 +56,18 @@ function Student() {
             student.fullName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             student.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             student.userName?.toLowerCase().includes(searchTerm.toLowerCase());
+
         const matchesGender =
-            filterGender === 'all' ||
-            (filterGender === 'male' && student.gender) ||
-            (filterGender === 'female' && !student.gender);
+            filterGender === 'all'
+                ? student.isActive // Chỉ hiển thị sinh viên đang hoạt động
+                : filterGender === 'deleted'
+                ? !student.isActive // Hiển thị sinh viên đã xóa
+                : filterGender === 'male'
+                ? student.gender && student.isActive
+                : filterGender === 'female'
+                ? !student.gender && student.isActive
+                : false;
+
         return matchesSearch && matchesGender;
     });
 
@@ -105,15 +125,147 @@ function Student() {
         setSelectedStudent(student);
         setDialogDetailOpen(true);
     };
+
     const handleViewUpdate = (student) => {
         setSelectedStudent(student);
         setDialogUpdateOpen(true);
     };
+
     // Handler để đóng dialog
     const handleCloseDialog = () => {
         setDialogUpdateOpen(false);
         setDialogDetailOpen(false);
         setSelectedStudent(null);
+    };
+
+    const handleSave = (selectedStudent) => {
+        console.log(selectedStudent);
+        fetchStudents();
+    };
+
+    // Xóa mềm sinh viên (deactivate)
+    const handleSoftDelete = async (studentId) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cảnh báo!',
+            text: 'Bạn có chắc muốn xóa mục này?',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Hủy',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#ef4444',
+            customClass: {
+                title: 'text-3xl font-bold',
+                htmlContainer: 'text-xl text-gray-700',
+                confirmButton: 'text-xl px-4 py-2 ',
+                cancelButton: 'text-xl px-4 py-2',
+            },
+        }).then(async (res) => {
+            if (res.isDismissed) {
+                return;
+            }
+            try {
+                await StudentService.deactivate(studentId);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đã xóa thành công!',
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+                fetchStudents();
+            } catch (error) {
+                console.error('Error soft deleting student:', error);
+                const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi xóa sinh viên!';
+                Swal.fire({
+                    icon: 'error',
+                    title: errorMsg,
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+            }
+        });
+    };
+
+    // Khôi phục sinh viên (activate)
+    const handleRestore = async (studentId) => {
+        Swal.fire({
+            icon: 'question',
+            title: 'Thông báo!',
+            text: 'Bạn có chắc muốn khôi phục học viên này không?',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Hủy',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#ef4444',
+            customClass: {
+                title: 'text-3xl font-bold',
+                htmlContainer: 'text-xl text-gray-700',
+                confirmButton: 'text-xl px-4 py-2 ',
+                cancelButton: 'text-xl px-4 py-2',
+            },
+        }).then(async (res) => {
+            if (res.isDismissed) return;
+            try {
+                await StudentService.activate(studentId);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Khôi phục sinh viên thành công!',
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+                fetchStudents();
+            } catch (error) {
+                console.error('Error restoring student:', error);
+                const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi khôi phục sinh viên!';
+                Swal.fire({
+                    icon: 'error',
+                    title: errorMsg,
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+            }
+        });
+    };
+
+    // Xóa vĩnh viễn sinh viên
+    const handlePermanentDelete = async (studentId) => {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cảnh báo!',
+            text: 'Bạn có chắc chắn muốn xóa VĨNH VIỄN sinh viên này? Hành động này không thể hoàn tác!',
+            showCancelButton: true,
+            confirmButtonText: 'Có',
+            cancelButtonText: 'Hủy',
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#ef4444',
+            customClass: {
+                title: 'text-3xl font-bold',
+                htmlContainer: 'text-xl text-gray-700',
+                confirmButton: 'text-xl px-4 py-2 ',
+                cancelButton: 'text-xl px-4 py-2',
+            },
+        }).then(async (res) => {
+            if (res.isDismissed) return;
+            try {
+                await StudentService.delete(studentId);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Xóa vĩnh viễn sinh viên thành công!',
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+                fetchStudents();
+            } catch (error) {
+                console.error('Error permanently deleting student:', error);
+                const errorMsg = error.response?.data?.message || 'Có lỗi xảy ra khi xóa vĩnh viễn sinh viên!';
+                Swal.fire({
+                    icon: 'error',
+                    title: errorMsg,
+                    timer: 1000,
+                    showConfirmButton: false,
+                });
+            }
+        });
     };
 
     if (loading) {
@@ -153,15 +305,21 @@ function Student() {
                         />
                     </div>
 
-                    <div className={cx('genderFilter')}>
-                        <span className={cx('genderLabel')}>Giới tính:</span>
-                        {['all', 'male', 'female'].map((gender) => (
+                    <div className={cx('Filter')}>
+                        <span className={cx('Label')}>Lọc:</span>
+                        {['all', 'male', 'female', 'deleted'].map((gender) => (
                             <button
                                 key={gender}
                                 onClick={() => setFilterGender(gender)}
-                                className={cx('genderButton', { active: filterGender === gender })}
+                                className={cx('Button', { active: filterGender === gender })}
                             >
-                                {gender === 'all' ? 'Tất cả' : gender === 'male' ? 'Nam' : 'Nữ'}
+                                {gender === 'all'
+                                    ? 'Tất cả'
+                                    : gender === 'male'
+                                    ? 'Nam'
+                                    : gender === 'female'
+                                    ? 'Nữ'
+                                    : 'Đã xóa'}
                             </button>
                         ))}
                     </div>
@@ -176,7 +334,7 @@ function Student() {
                     </div>
                 ) : (
                     <>
-                        <div className={cx('studentsGrid')}>
+                        <div className={cx('studentsGrid', 'pb-20')}>
                             {displayedFilteredStudents.map((student) => (
                                 <div key={student.studentId} className={cx('studentCard')}>
                                     <div
@@ -185,7 +343,7 @@ function Student() {
                                             inactive: !student.isActive,
                                         })}
                                     >
-                                        {student.isActive ? 'Đang học' : 'Nghỉ học'}
+                                        {student.isActive ? 'Đang học' : 'Đã xóa'}
                                     </div>
 
                                     <div className={cx('studentHeader')}>
@@ -225,19 +383,51 @@ function Student() {
                                     </div>
 
                                     <div className={cx('actionButtons')}>
-                                        <button
-                                            className={cx('actionButton', 'view')}
-                                            onClick={() => handleViewDetail(student)}
-                                        >
-                                            <Eye /> Chi tiết
-                                        </button>
-                                        <button className={cx('actionButton', 'edit')}
-                                                onClick={() => handleViewUpdate(student)}>
-                                            <Edit /> Sửa
-                                        </button>
-                                        <button className={cx('actionButton', 'delete')}>
-                                            <Delete /> Xóa
-                                        </button>
+                                        {student.isActive ? (
+                                            // Nút cho sinh viên đang hoạt động
+                                            <>
+                                                <button
+                                                    className={cx('actionButton', 'view')}
+                                                    onClick={() => handleViewDetail(student)}
+                                                >
+                                                    <Eye /> Chi tiết
+                                                </button>
+                                                <button
+                                                    className={cx('actionButton', 'edit')}
+                                                    onClick={() => handleViewUpdate(student)}
+                                                >
+                                                    <Edit /> Sửa
+                                                </button>
+                                                <button
+                                                    className={cx('actionButton', 'delete')}
+                                                    onClick={() => handleSoftDelete(student.studentId)}
+                                                >
+                                                    <Delete /> Xóa
+                                                </button>
+                                            </>
+                                        ) : (
+                                            // Nút cho sinh viên đã bị xóa
+                                            <>
+                                                <button
+                                                    className={cx('actionButton', 'view')}
+                                                    onClick={() => handleViewDetail(student)}
+                                                >
+                                                    <Eye /> Chi tiết
+                                                </button>
+                                                <button
+                                                    className={cx('actionButton', 'edit')}
+                                                    onClick={() => handleRestore(student.studentId)}
+                                                >
+                                                    <RotateCcw /> Khôi phục
+                                                </button>
+                                                <button
+                                                    className={cx('actionButton', 'delete')}
+                                                    onClick={() => handlePermanentDelete(student.studentId)}
+                                                >
+                                                    <Delete /> Xóa vĩnh viễn
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             ))}
@@ -254,16 +444,13 @@ function Student() {
             </div>
 
             {/* Student Detail Dialog */}
-            <StudentDetailForm
-                open={dialogDetailOpen}
-                onClose={handleCloseDialog}
-                student={selectedStudent}
-            />
+            <StudentDetailForm open={dialogDetailOpen} onClose={handleCloseDialog} student={selectedStudent} />
 
             <UpdateForm
                 open={dialogUpdateOpen}
                 onClose={handleCloseDialog}
                 student={selectedStudent}
+                onSave={handleSave}
             />
         </div>
     );

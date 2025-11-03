@@ -68,18 +68,18 @@
             }
         }
 
-        .genderFilter {
+        .Filter {
             display: flex;
             gap: 8px;
             align-items: center;
 
-            .genderLabel {
+            .Label {
                 font-size: 14px;
                 color: #64748b;
                 font-weight: 500;
             }
 
-            .genderButton {
+            .Button {
                 padding: 8px 18px;
                 border: 1.5px solid #e2e8f0;
                 border-radius: 8px;
@@ -320,6 +320,8 @@
                             color: #b91c1c; // chữ đỏ đậm hơn khi hover để rõ ràng hơn
                         }
                     }
+
+                    
                 }
             }
         }
