@@ -1,14 +1,27 @@
 import Login from '~/pages/Login';
 import Admin from '~/pages/Admin';
+import Logup from '~/pages/Logup';
+import home from '~/pages/Home/HomePage';
 import { DefaultLayout, HeaderOnly } from '~/layouts';
-import Student from '~/pages/Student';
 
+// CÁC TRANG CÔNG KHAI (Ai cũng truy cập được)
 const publicRoutes = [
-    { path: '/', component: Login, layout: null},
-    { path: '/admin', component: Admin, layout: HeaderOnly},
-    { path: '/student', component: Student, layout: HeaderOnly},
+    { path: '/login', component: Login, layout: null },
+    { path: '/register', component: Logup, layout: null },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+    {
+        path: '/',
+        component: home,
+        layout: DefaultLayout,
+    },
+    {
+        path: '/admin',
+        component: Admin,
+        layout: HeaderOnly,
+        roles: ['Admin'],
+    },
+];
 
 export { publicRoutes, privateRoutes };
