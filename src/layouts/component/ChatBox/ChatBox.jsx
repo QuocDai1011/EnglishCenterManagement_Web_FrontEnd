@@ -177,7 +177,7 @@ function ChatBox() {
                             </div>
                             <div>
                                 <h3 className="font-semibold text-3xl">Tư vấn hỗ trợ</h3>
-                                <p className="text-2xl text-blue-100"> <span><div>1</div></span> Trực tuyến</p>
+                                <p className="text-2xl text-blue-100"> Trực tuyến</p>
                             </div>
                         </div>
                         <div className="flex gap-2">

@@ -9,6 +9,7 @@ const StudentService = {
     
     // Khôi phục (activate)
     activate: (id) => axiosClient.patch(`/Student/${id}/restore`),
+    create: (data) => axiosClient.post('/Student', data),
 }
 
 export default StudentService;
