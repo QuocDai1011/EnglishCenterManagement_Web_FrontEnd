@@ -19,6 +19,7 @@
     "axios": "^1.13.2",
     "classnames": "^2.5.1",
     "lodash.debounce": "^4.0.8",
+    "normalize.css": "^8.0.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-floating-whatsapp": "^5.0.8",

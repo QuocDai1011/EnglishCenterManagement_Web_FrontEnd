@@ -3,6 +3,7 @@ import styles from './Classes.module.scss';
 import { FaUsersBetweenLines, FaLocationDot } from 'react-icons/fa6';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 function Classes() {
     const navigate = useNavigate();
     const [classesData, setClassesData] = useState([]);
@@ -12,9 +13,10 @@ function Classes() {
         fetchClasses();
     }, []);
 
+    const API_BASE = 'https://localhost:7069/';
     const fetchClasses = async () => {
         try {
-            const response = await fetch('https://localhost:7069/api/Student/get-classes/' + idStudent);
+            const response = await fetch(API_BASE + 'api/Student/get-classes/' + idStudent);
             const data = await response.json();
             setClassesData(data.classes);
         } catch (error) {
