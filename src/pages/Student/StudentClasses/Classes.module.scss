@@ -1,0 +1,100 @@
+.Classes {
+    // font-family: Roboto, sans-serif;
+    &__main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 12px;
+    }
+
+    &__item {
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 5px;
+        color: #000000de;
+        box-sizing: border-box;
+        margin: 0;
+        display: flex;
+        padding: 10px;
+        background-color: #fff;
+        flex-direction: column;
+        width: calc(33.333% - 12px);
+        height: auto;
+    }
+    &__header {
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+        width: 85%;
+        height: 48px;
+        position: sticky;
+        border-radius: 5px;
+        background-color: #fff;
+        margin: 2px auto 0 auto;
+    }
+    &__headerContainer {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        padding-left: 24px;
+        margin-top: 11px;
+        position: sticky;
+        border-radius: 5px;
+        & p{
+            margin: 0;
+        }
+    }
+    &__headerIconSvg {
+        font-size: 20px;
+    }
+    &__itemImage {
+        width: 100px;
+        height: 100px;
+        & img {
+            width: 100px;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+    }
+    &__body {
+        width: 85%;
+        margin: 0 auto;
+    }
+    &__containerItem {
+        display: flex;
+        align-items: start;
+    }
+    &__contentContainer {
+        margin-left: 10px;
+        & p {
+            margin: 0;
+        }
+    }
+    &__contentTitle,
+    &__supplementCenter span {
+        font-weight: 500;
+    }
+    &__itemSupplement{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        & .Classes__supplementIcon {
+            font-size: 18px;
+        }
+    }
+    &__supplementCenter,
+    &__supplementClass {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+}
