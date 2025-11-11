@@ -39,6 +39,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    console.log(value);
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -166,7 +167,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
 
   const SelectField = ({ label, name, options, required = false, error }) => (
     <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-xl font-semibold text-gray-700 mb-2">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
       <select
@@ -195,7 +196,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
 
   const TextAreaField = ({ label, name, error, ...props }) => (
     <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-xl font-semibold text-gray-700 mb-2">
         {label}
       </label>
       <textarea
@@ -330,7 +331,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
                   ]}
                 />
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label className="block text-xl font-semibold text-gray-700 mb-2">
                     Trạng thái
                   </label>
                   <label className="flex items-center cursor-pointer">

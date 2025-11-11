@@ -111,6 +111,28 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [cities, setCities] = useState([])
+
+    const fetchCitites = () => {
+        try{
+            fetch("https://provinces.open-api.vn/api/v1/")
+        .then((res) => {
+            if(!res.ok){
+                Swal.fire("Error", "Lỗi khi lấy dữ liệu Thành phố", "error")
+            }
+            return res.json();
+        })
+        .then((data) => setCities(data))
+        }catch(e){
+            console.log("Error: " + e);
+            Swal.fire("Error", "Đã xảy ra lỗi khi get API", "error")
+        }
+    }
+
+    useEffect(() => {
+        fetchCitites();
+    },[])
+
 
     useEffect(() => {
         if (student) {
@@ -135,6 +157,7 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
     }, [student]);
 
     const handleChange = (field, value) => {
+        
         setFormData((prev) => ({
             ...prev,
             [field]: value,
@@ -204,6 +227,7 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
                 creatAt: formData.creatAt ? formData.creatAt : now,
                 updateAt: now,
                 isActive: formData.isActive,
+                password: formData.password || ''
             };
 
             // Only include password if user entered a new one
@@ -451,9 +475,10 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
                                                 onChange={(e) => handleChange('address', e.target.value)}
                                                 className="w-full text-xl text-gray-800 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                                             >
-                                                {hcmDistricts.map((opt) => (
-                                                    <option key={opt.value} value={opt.value}>
-                                                        {opt.label}
+                                                <option value="">-- Tỉnh/Thành phố --</option>
+                                                {cities.map((opt) => (
+                                                    <option key={opt.code} value={opt.name}>
+                                                        {opt.name}
                                                     </option>
                                                 ))}
                                             </select>
