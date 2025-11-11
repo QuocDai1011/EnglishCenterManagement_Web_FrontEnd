@@ -27,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.547.0",
     "mssql": "^12.0.0",
+    "normalize.css": "^8.0.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-hook-form": "^7.65.0",
