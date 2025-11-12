@@ -1,0 +1,14 @@
+.StudentSpace {
+    &__main{
+        display: flex;
+    }
+    &__mainSide {
+        width: 60%;
+        padding: 0px;
+        margin: 0px auto;
+        max-width: 680px;
+    }
+    &__subSide {
+        width: 18%;
+    }
+}

@@ -1,6 +1,6 @@
 import style from './User.module.scss';
 import ClassName from 'classnames/bind';
-import Header from '~/layouts/component/Header'
+import Header from '~/layouts/component/HeaderAdmin'
 import SideBar from '~/layouts/component/Sidebar'
 import Post from '~/layouts/component/Post'
 import ProfileCard from '~/layouts/component/ProfileCard';

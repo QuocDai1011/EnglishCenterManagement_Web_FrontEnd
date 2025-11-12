@@ -1,0 +1,47 @@
+.FullCalendar {
+    display: flex;
+    justify-content: center;
+    &__main {
+        margin: 18px 0 20px 0;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fff;
+        width: 100%;
+    }
+    :global {
+        --fc-button-bg-color: rgb(238, 238, 238);
+        --fc-button-text-color: rgb(0, 0, 0);
+
+        .fc-col-header-cell-cushion {
+            color: rgba(0, 0, 0, 0.87);
+            font-weight: 600;
+        }
+        .fc-daygrid-day-number {
+            color: rgba(0, 0, 0, 0.87);
+        }
+        .fc .fc-button-primary {
+            border-color: transparent;
+            background-color: var(--fc-button-bg-color);
+            color: var(--fc-button-text-color);
+        }
+
+        .fc .fc-button-primary:disabled,
+        .fc .fc-button-primary:not(:disabled).fc-button-active {
+            background-color: rgb(189, 189, 189);
+            color: rgb(0, 0, 0);
+            border-color: rgb(189, 189, 189);
+        }
+
+        .fc .fc-button-primary:hover:not(:disabled) {
+            background-color: rgb(189, 189, 189);
+            border-color: rgb(189, 189, 189);
+        }
+
+        .fc-button-active {
+            background-color: rgb(189, 189, 189) !important;
+        }
+        .fc .fc-timegrid-slot {
+            height: 3em !important;
+        }
+    }
+}

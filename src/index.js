@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import GlobalStyle from './component/GlobalStyle';
-import './index.css';  // ✅ Import ở đây
+import GlobalStyle from './components/GlobalStyle';
+// import './index.css';  // ✅ Import ở đây
+// import './components/GlobalStyle/GlobalStyle.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

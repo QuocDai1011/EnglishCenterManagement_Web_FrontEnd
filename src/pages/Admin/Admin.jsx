@@ -1,6 +1,6 @@
 import styles from './Admin.module.scss';
 import classNames from 'classnames/bind';
-import Header from '~/layouts/component/Header/Header'
+import Header from '~/layouts/component/HeaderAdmin/HeaderAdmin'
 import SideBar from '~/layouts/component/Sidebar/Sidebar'
 import Post from '~/layouts/component/Post/Post';
 import { MessageCircle, Send } from 'lucide-react';
