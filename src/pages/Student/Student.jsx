@@ -16,10 +16,11 @@ import {
     RotateCcw,
     CircleQuestionMark,
 } from 'lucide-react';
-import StudentDetailForm from '~/layouts/component/Popup/DetailDiaLog/StudentDetailForm';
-import UpdateForm from '~/layouts/component/Popup/UpdateDiaLog/UpdateStudentDiaLog';
+import StudentDetailForm from '~/layouts/component/DiaLog/StudentDetail/StudentDetailForm';
+import UpdateForm from '~/layouts/component/DiaLog/StudentUpdate/UpdateStudentDiaLog';
 import StudentService from '~/api/StudentService';
 import Swal from 'sweetalert2';
+import { Header } from '~/layouts/component';
 const cx = classNames.bind(styles);
 
 function Student() {
@@ -281,6 +282,7 @@ function Student() {
 
     return (
         <div className={cx('container')}>
+            <Header />
             <SideBar />
 
             <div className={cx('content')}>

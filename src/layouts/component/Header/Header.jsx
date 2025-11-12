@@ -30,7 +30,8 @@ import React, { useState } from 'react'; // Thêm useState
 import Dropdown from '~/layouts/component/Dropdown/Dropdown';
 import { ChevronDown, ChevronLeft } from 'lucide-react';
 import { Link,useLocation,useNavigate  } from 'react-router-dom';
-import Post from '~/layouts/component/Post';
+import Events from '../DiaLog/Events';
+import PostDialog from '../DiaLog/PostDialog';
 const cx = classNames.bind(styles);
 
 const iconBtn = [
@@ -56,34 +57,38 @@ const iconBtn = [
     },
 ];
 function Header() {
-    const handleClick = (id) => {
-        setIsActive(id);
-    };
-    const [isActive, setIsActive] = useState(1);
+
+    // const [isActive, setIsActive] = useState(1);
     const location = useLocation();
 
     // ====================
     // DATA CHO DROPDOWN CREATE
     // ====================
+
+    const [activeComponent, SetActiveComponent] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
     const iconPlusItems = [
         {
             id: 'post',
             icon: <FaEdit size={26} style={{ color: '#828282' }} />,
             title: 'Tạo bài viết',
             description: 'Chia sẻ bài viết lên bảng tin',
-            onClick: () => (
-                <>
+            onClick: () => {
                 console.log('post click');
-            <Post />
-            </>
-            ),
+                setIsOpen(true);
+                SetActiveComponent('post');
+            }
         },
         {
             id: 'event',
             icon: <FaCalendarPlus size={26} style={{ color: '#828282' }} />,
             title: 'Sự kiện',
             description: 'Gắn kết mọi người thông qua sự kiện công khai',
-            onClick: () => console.log('Create story'),
+            onClick: () => {
+                console.log('Create story');
+                setIsOpen(true)
+                SetActiveComponent('event');
+            }
         },
         {
             id: 'group',
@@ -121,57 +126,7 @@ function Header() {
             onClick: () => console.log('Create room'),
         },
     ];
-    // ====================
-    // DATA CHO DROPDOWN MENU CHÍNH (như ảnh 2)
-    // ====================
-    const iconChevronRightItems = [
-        {
-            id: 'add-user',
-            title: 'Thêm học viên',
-            icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-HR',
-            title: 'Thêm mới nhân sự',
-            icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-receipt',
-            title: 'Thêm mới phiếu thu',
-            icon: <CiReceipt size={26} style={{ color: '#828282' }} />,
-        },
-
-        {
-            id: 'add-invoice',
-            title: 'Thêm mới phiếu chi',
-            icon: <FaFileInvoiceDollar size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-order',
-            title: 'Tạo đơn hàng',
-            icon: <BsCartPlus size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-schedule',
-            title: 'Thêm lịch học',
-            icon: <FaBookMedical size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-classroom',
-            title: 'Thêm lớp học',
-            icon: <FaUsers size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-email',
-            title: 'Thêm mới chiến dịch Email',
-            icon: <FaRegEnvelope size={26} style={{ color: '#828282' }} />,
-        },
-        {
-            id: 'add-SMS',
-            title: 'Thêm mới chiến dịch SMS',
-            icon: <FaRegPaperPlane size={26} style={{ color: '#828282' }} />,
-        },
-    ];
+    
     const [showQuickAdd, setShowQuickAdd] = useState(false);
     console.log('showQuickAdd:', showQuickAdd);
     const [isGridMenuOpen, setIsGridMenuOpen] = useState(false);
@@ -789,6 +744,10 @@ function Header() {
                     </div>
                 </div>
             </header>
+
+            {isOpen && activeComponent === 'post'  && (<PostDialog open={isOpen} onClose={() => SetActiveComponent(null)}/>)}
+            {isOpen && activeComponent === 'event'  && (<Events open={isOpen} onClose={() => SetActiveComponent(null)}/>)}
+
         </>
     );
 }

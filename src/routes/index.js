@@ -3,11 +3,15 @@ import Admin from '~/pages/Admin';
 import User from '~/pages/User';
 import MyClass from '~/pages/MyClass';
 import { DefaultLayout, HeaderOnly } from '~/layouts';
-import Student from '~/pages/Student';
+import Student from '~/pages/Student/Student';
 import AddStudent from '~/pages/Student/AddStudent';
 
 import Groups from '~/pages/Groups';
+import Logup from '~/pages/Logup';
+import home from '~/pages/Home/HomePage';
+// import { DefaultLayout, HeaderOnly } from '~/layouts';
 
+// CÁC TRANG CÔNG KHAI (Ai cũng truy cập được)
 const publicRoutes = [
     { path: '/', component: Login, layout: null},
     { path: '/admin', component: Admin, layout: HeaderOnly},
@@ -25,8 +29,22 @@ const publicRoutes = [
     // { path: '/absenteeism', component: Absenteeism, layout: HeaderOnly},
     // { path: '/timesheets', component: TimeSheets, layout: HeaderOnly},
 
+    { path: '/login', component: Login, layout: null },
+    { path: '/register', component: Logup, layout: null },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+    {
+        path: '/',
+        component: home,
+        layout: DefaultLayout,
+    },
+    {
+        path: '/admin',
+        component: Admin,
+        layout: HeaderOnly,
+        roles: ['Admin'],
+    },
+];
 
 export { publicRoutes, privateRoutes };

@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { X, Plus, RefreshCw } from 'lucide-react';
+import { X, RefreshCw } from 'lucide-react';
 import Swal from 'sweetalert2';
 import StudentService from '~/api/StudentService';
+import { Link } from 'react-router-dom';
 
 // Reusable Input Component
-const InputField = ({ label, required, value, onChange, type = 'text', placeholder, disabled = false, className = '' }) => (
+const InputField = ({
+    label,
+    required,
+    value,
+    onChange,
+    type = 'text',
+    placeholder,
+    disabled = false,
+    className = '',
+}) => (
     <div>
         <label className="block text-2xl mb-2">
             {label} {required && <span className="text-red-600">*</span>}
@@ -53,9 +63,7 @@ export default function AddStudentForm() {
     const [wards, setWards] = useState([]);
 
     const [formData, setFormData] = useState({
-        avatar: null,
         fullName: '',
-        userId: 'HV-0000138',
         email: '',
         status: 'Hoạt động',
         password: '',
@@ -70,7 +78,6 @@ export default function AddStudentForm() {
         wards: '',
         address: '',
         joinDate: new Date().toISOString().split('T')[0],
-        description: '',
     });
 
     // Fetch functions
@@ -161,37 +168,56 @@ export default function AddStudentForm() {
     };
 
     const handleSubmit = async () => {
-      try{
-        const res = await StudentService.create(formData);
-        if(res){
-          Swal.fire("Thêm học viên", "Thêm học viên thành công !", "success")
+        try {
+            const payload = {
+                studentId: 0,
+                userName: formData.username,
+                password: formData.password,
+                fullName: formData.fullName,
+                email: formData.email,
+                gender: formData.gender === '1',
+                address: formData.address,
+                dateOfBirth: formData.birthDate || null,
+                phoneNumber: formData.phone,
+                phoneNumberOfParents: formData.parentPhone,
+                creatAt: formData.joinDate || new Date().toISOString().split('T')[0],
+                updateAt: new Date().toISOString().split('T')[0],
+                isActive: formData.status === 'Hoạt động',
+            };
+
+            const res = await StudentService.create(payload);
+            if (res) {
+                await Swal.fire('Thêm học viên', 'Thêm học viên thành công!', 'success');
+                // Reset form hoặc redirect nếu cần
+            }
+        } catch (e) {
+            console.error('Error exception:', e);
+            Swal.fire('Thêm học viên', 'Đã có lỗi xảy ra! Vui lòng thử lại', 'error');
         }
-      }catch(e){
-        console.error("Error exception: " + e);
-        
-        Swal.fire("Thêm học viên", "Đã có lôi xảy ra! Vui lòng thử lại", "warning")
-      }
-        console.log('Form Data:', formData);
-        alert(`Đã lưu thông tin học viên!\nĐịa chỉ: ${formData.address}`);
     };
 
     return (
         <div className="min-h-screen bg-gray-50 p-4">
             <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-sm">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b">
-                    <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <div className="flex items-center justify-between p-4">
+                    <Link to="/admin">
+                        <button className="p-2 hover:bg-gray-100 rounded-lg">
                         <X size={20} />
                     </button>
+                    </Link>
                     <h1 className="text-3xl font-semibold">Thêm học viên</h1>
-                    <button className="px-6 py-2 bg-blue-600 text-white text-xl rounded-lg hover:bg-blue-700">
+                    <button 
+                        onClick={handleSubmit}
+                        className="px-6 py-2 bg-blue-600 text-white text-xl rounded-lg hover:bg-blue-700"
+                    >
                         Lưu
                     </button>
                 </div>
 
                 {/* Progress Steps */}
-                <div className="p-6 border-b">
-                    <div className="flex items-center justify-center max-w-2xl mx-auto">
+                <div className="p-6">
+                    <div className="flex items-center justify-center max-w-3xl mx-auto">
                         <div className="flex items-center">
                             <div
                                 className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -224,85 +250,74 @@ export default function AddStudentForm() {
                             <div className="mb-8">
                                 <h2 className="text-2xl font-semibold mb-6">Thông tin chung</h2>
 
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                    {/* Avatar Upload */}
-                                    <div className="col-span-1">
-                                        <label className="block text-2xl mb-2">Ảnh đại diện</label>
-                                        <div className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500">
-                                            <Plus size={32} className="text-gray-400" />
-                                        </div>
-                                    </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <InputField
+                                        label="Họ và tên"
+                                        required
+                                        value={formData.fullName}
+                                        onChange={(val) => handleInputChange('fullName', val)}
+                                        placeholder="Họ và tên"
+                                    />
 
-                                    {/* Form Fields */}
-                                    <div className="col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <InputField
-                                            label="Họ và tên"
-                                            required
-                                            value={formData.fullName}
-                                            onChange={(val) => handleInputChange('fullName', val)}
-                                            placeholder="Họ và tên"
-                                        />
+                                    <InputField
+                                        label="Trạng thái"
+                                        value={formData.status}
+                                        onChange={() => {}}
+                                        disabled
+                                    />
 
-                                        <InputField
-                                            label="Trạng thái"
-                                            value={formData.status}
-                                            onChange={() => {}}
-                                            disabled
-                                        />
+                                    <InputField
+                                        label="Email"
+                                        required
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={(val) => handleInputChange('email', val)}
+                                        placeholder="example@gmail.com"
+                                    />
 
-                                        <InputField
-                                            label="Email"
-                                            required
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={(val) => handleInputChange('email', val)}
-                                            placeholder="example@gmail.com"
-                                        />
+                                    <InputField
+                                        label="Số điện thoại"
+                                        required
+                                        type="tel"
+                                        value={formData.phone}
+                                        onChange={(val) => handleInputChange('phone', val)}
+                                        placeholder="Số điện thoại"
+                                    />
 
-                                        <InputField
-                                            label="Số điện thoại"
-                                            required
-                                            type="tel"
-                                            value={formData.phone}
-                                            onChange={(val) => handleInputChange('phone', val)}
-                                            placeholder="Số điện thoại"
-                                        />
+                                    <InputField
+                                        label="Tài khoản"
+                                        required
+                                        value={formData.username}
+                                        onChange={(val) => handleInputChange('username', val)}
+                                        placeholder="trungle05"
+                                    />
 
-                                        <InputField
-                                            label="Tài khoản"
-                                            required
-                                            value={formData.username}
-                                            onChange={(val) => handleInputChange('username', val)}
-                                            placeholder="trungle05"
-                                        />
-
-                                        <div>
-                                            <label className="block text-2xl mb-2">
-                                                Mật khẩu <span className="text-red-600">*</span>
-                                            </label>
-                                            <div className="flex gap-2">
-                                                <input
-                                                    type="text"
-                                                    placeholder="Mật khẩu"
-                                                    value={formData.password}
-                                                    onChange={(e) => handleInputChange('password', e.target.value)}
-                                                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                                />
-                                                <button
-                                                    onClick={generatePassword}
-                                                    className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
-                                                    title="Tạo mật khẩu ngẫu nhiên"
-                                                >
-                                                    <RefreshCw size={20} className="text-gray-600" />
-                                                </button>
-                                            </div>
+                                    <div>
+                                        <label className="block text-2xl mb-2">
+                                            Mật khẩu <span className="text-red-600">*</span>
+                                        </label>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                placeholder="Mật khẩu"
+                                                value={formData.password}
+                                                onChange={(e) => handleInputChange('password', e.target.value)}
+                                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            />
+                                            <button
+                                                onClick={generatePassword}
+                                                className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                                title="Tạo mật khẩu ngẫu nhiên"
+                                            >
+                                                <RefreshCw size={20} className="text-gray-600" />
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             {/* Navigation Buttons */}
-                            <div className="flex justify-end gap-3 pt-6 border-t">
+                            <div className="flex justify-end gap-3 pt-6">
                                 <button
                                     onClick={handleNext}
                                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
@@ -386,42 +401,22 @@ export default function AddStudentForm() {
                                         onChange={(val) => handleInputChange('joinDate', val)}
                                     />
                                 </div>
-
-                                {/* Display Complete Address */}
-                                {formData.address && (
-                                    <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                                        <span className="font-semibold text-blue-900">Địa chỉ đầy đủ:</span>{' '}
-                                        <span className="text-blue-800">{formData.address}</span>
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* Mô tả */}
-                            <div className="mb-8">
-                                <label className="block text-2xl mb-2">Mô tả</label>
-                                <textarea
-                                    value={formData.description}
-                                    onChange={(e) => handleInputChange('description', e.target.value)}
-                                    placeholder="Mô tả..."
-                                    rows={6}
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                />
                             </div>
 
                             {/* Navigation Buttons */}
-                            <div className="flex justify-between pt-6 border-t">
+                            <div className="flex justify-between pt-6">
                                 <button
                                     onClick={handlePrev}
                                     className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
                                 >
                                     Quay lại
                                 </button>
-                                <button
+                                {/* <button
                                     onClick={handleSubmit}
                                     className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                                 >
                                     Lưu
-                                </button>
+                                </button> */}
                             </div>
                         </>
                     )}

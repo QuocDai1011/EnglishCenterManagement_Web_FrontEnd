@@ -3,11 +3,12 @@ import ClassName from 'classnames/bind';
 import style from './MyClass.module.scss';
 import SideBar from '~/layouts/component/Sidebar';
 import MyClassService from '~/api/MyClassService';
-import ClassDetailDialog from '~/layouts/component/Popup/DetailDiaLog/ClassDetailDialog';
-import UpdateClassDiaLog from '~/layouts/component/Popup/UpdateDiaLog/UpdateClassDiaLog';
+import ClassDetailDialog from '~/layouts/component/DiaLog/ClassDetail/ClassDetailDialog';
+import UpdateClassDiaLog from '~/layouts/component/DiaLog/ClassUpdate/UpdateClassDiaLog';
 import { Users, MapPin, Loader2, AlertCircle, Eye, Edit, Trash2 } from 'lucide-react';
 import { CiCircleCheck } from 'react-icons/ci';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import { Header } from '~/layouts/component';
 
 const cx = ClassName.bind(style);
 
@@ -82,11 +83,13 @@ function MyClass() {
     }
 
     return (
+        
         <div className="container">
+            <Header />
             <SideBar />
 
             <div className={cx('min-h-scree p-6', 'main')}>
-                <div className="max-w-[116rem] w-[93%] mx-auto mt-28">
+                <div className="max-w-116rem w-[93%] mx-auto mt-28">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-6">
                         <div className="items-center gap-3">
@@ -114,7 +117,7 @@ function MyClass() {
                     {/* Error message */}
                     {error && (
                         <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg flex items-start gap-3">
-                            <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                            <AlertCircle className="w-5 h-5 text-yellow-600 shrink-0 mt-0.5" />
                             <div>
                                 <p className="text-yellow-800 font-medium">Không thể kết nối đến server</p>
                                 <p className="text-yellow-700 text-xl mt-1">Lỗi: {error}</p>
@@ -150,14 +153,14 @@ function MyClass() {
 
                                 {/* Nội dung */}
                                 <div className="p-6">
-                                    <h4 className="text-[1.6rem] font-semibold text-gray-800 mb-4 line-clamp-2 min-h-[3.5rem]">
+                                    <h4 className="text-[1.6rem] font-semibold text-gray-800 mb-4 line-clamp-2 min-h-3.5rem">
                                         {cls.className}
                                     </h4>
 
                                     <div className="space-y-3 mb-4">
                                         {/* Địa điểm */}
                                         <div className="flex items-start gap-2 text-sm text-gray-600">
-                                            <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                                            <MapPin className="w-5 h-5 mt-0.5 shrink-0" />
                                             <span className="line-clamp-1 text-xl ">TRUNG TÂM NGOẠI NGỮ TRE...</span>
                                         </div>
 
