@@ -1,0 +1,77 @@
+.StudentClassMember {
+    &__main {
+        display: flex;
+        flex-direction: column;
+        margin: 15px 0 20px 0;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    &__title {
+        border-bottom: 1px solid #bdbdbd;
+        padding-bottom: 15px;
+        h2 {
+            padding: 10px 10px 0;
+            margin: 0;
+            font-weight: bolder;
+        }
+    }
+    &__memberLists {
+        margin: 0 10px;
+        border-bottom: 1px solid #bdbdbd;
+        & p {
+            margin: 0;
+        }
+    }
+    &__headerMemberList {
+        display: flex;
+        padding-top: 10px;
+        justify-content: space-between;
+    }
+    &__titleQuantity {
+        display: flex;
+        gap: 10px;
+        & p:nth-child(1) {
+            font-weight: bolder;
+        }
+    }
+    &__memberItems {
+        padding: 8px 0;
+    }
+    &__memberItem {
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        & img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        & p {
+            font-weight: bold;
+        }
+    }
+    &__search {
+        margin-right: 10px;
+        border-bottom: 1px solid #bdbdbd;
+        & input {
+            border: none;
+            font-size: 16px;
+            animation-name: mui-auto-fill-cancel;
+            animation-duration: 10ms;
+            padding: 1px 0px 5px;
+            outline: none;
+        }
+        & .StudentClassMember__searchIcon {
+            color: #000000de !important;
+            opacity: 0.6;
+        }
+    }
+    & .StudentHr{
+        border-top: 2px solid #bdbdbd;
+    }
+}

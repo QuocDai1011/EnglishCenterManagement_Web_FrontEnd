@@ -119,3 +119,7 @@
   }
 }
 
+/* Tailwind layers cần ở cuối file để đảm bảo import đúng */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

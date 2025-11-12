@@ -1,4 +1,5 @@
-@import 'normalize.css/normalize.css';
+
+@import "normalize.css/normalize.css";
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&display=swap');
 
 :root {
@@ -18,7 +19,7 @@ html {
 body {
     font-family: 'Montserrat', sans-serif;
     font-optical-sizing: auto;
-    font-size: 1.6rem; // 16px  20rem = 200px
+    font-size: 1.6rem; 
     line-height: 1.5;
     text-rendering: optimizeSpeed;
 }
