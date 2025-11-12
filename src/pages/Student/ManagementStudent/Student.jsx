@@ -282,7 +282,7 @@ function Student() {
 
     return (
         <div className={cx('container')}>
-            <Header />
+            {/* <Header /> */}
             <SideBar />
 
             <div className={cx('content')}>
@@ -454,6 +454,7 @@ function Student() {
                 student={selectedStudent}
                 onSave={handleSave}
             />
+
         </div>
     );
 }

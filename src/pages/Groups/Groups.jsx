@@ -1,6 +1,6 @@
 import style from './Groups.module.scss'
 import className from 'classnames/bind'
-import Header from '~/layouts/component/Header/Header'
+import Header from '~/layouts/component/HeaderAdmin/HeaderAdmin'
 import SideBar from '~/layouts/component/Sidebar/Sidebar'
 import TabBar from '~/layouts/component/TabBar'
 import {useState} from 'react'

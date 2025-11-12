@@ -1,0 +1,55 @@
+.CreateBlog {
+    margin-top: 15px;
+    &__createBlog {
+        color: #65676b;
+        background-color: #fff;
+        box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+        border-radius: 10px;
+    }
+    &__btnCreate {
+        display: flex;
+        padding: 15px;
+        border-bottom: 1px solid #eff2f5;
+    }
+    &__img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+    &__btn {
+        flex: 1;
+        padding: 6px 16px;
+        margin-left: 10px;
+        color: #050505a8;
+        background-color: rgb(224, 224, 224);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px,
+            rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+        border-radius: 20px;
+        font-weight: 600;
+        border: none;
+    }
+    &__previewBlog {
+        background-color: #fff;
+        margin: 15px 0 20px;
+        width: 100%;
+        margin: 15px 0 20px 0;
+        display: flex;
+        overflow: hidden;
+        border-radius: 5px;
+        justify-content: center;
+    }
+    &__contentDescription {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 4rem;
+    }
+}

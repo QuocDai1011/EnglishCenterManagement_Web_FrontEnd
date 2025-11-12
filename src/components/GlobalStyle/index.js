@@ -1,8 +1,7 @@
 import './GlobalStyle.scss';
 
 function GlobalStyle({ children }) {
-       return <div className="global-style-wrapper">{children}</div>;
-
+    return children;
 }
 
 export default GlobalStyle;
