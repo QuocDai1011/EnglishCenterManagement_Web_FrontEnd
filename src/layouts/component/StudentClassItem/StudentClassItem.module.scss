@@ -16,7 +16,7 @@
     &__headerActions {
         display: flex;
         height: 48px;
-        font-size: 14px;
+        font-size: 1.4rem;
         & button {
             color: rgba(0, 0, 0, 0.6);
             width: 20%;
@@ -46,8 +46,9 @@
         padding: 10px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         & h2 {
-            font-size: 32px;
+            font-size: 3.2rem;
             margin: 0;
+            font-weight: 700;
         }
     }
     &__headerSupplement {
@@ -67,7 +68,7 @@
         & img {
             width: auto;
             object-fit: contain;
-            margin-bottom: 20px;
+            margin: 0 auto 20px auto;
         }
     }
     &__files {
@@ -75,6 +76,8 @@
         padding: 10px;
         & h2 {
             margin: 0;
+            font-size: 2.4rem;
+            font-weight: bolder;
         }
         margin-bottom: 0;
     }

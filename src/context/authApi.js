@@ -25,8 +25,13 @@ export const authApi = {
         return response.data;
     },
 
-    sendOTP: async (email) => {
-        const response = await axiosInstance.post('/send-otp', { email });
+    sendResetPassword: async (email, mode) => {
+        const response = await axiosInstance.post('/forgot-password', { email, mode });
+        return response.data;
+    },
+
+    sendOTP: async (email, mode) => {
+        const response = await axiosInstance.post('/send-otp', { email, mode });
         return response.data;
     },
 
@@ -45,5 +50,10 @@ export const authApi = {
             }
             throw error;
         }
+    },
+
+    resetPassword: async (email, newPassword, confirmPassword) => {
+        const response = await axiosInstance.post('/reset-password', { email, newPassword, confirmPassword });
+        return response.data;
     },
 };

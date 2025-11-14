@@ -1,0 +1,203 @@
+﻿.StudentCourseItem {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
+    &__main {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 24px;
+        margin-top: 32px;
+    }
+    &__leftSide,
+    &__rightSide {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        overflow: hidden;
+    }
+    &__leftSide {
+        background-color: #fff;
+        width: 70%;
+    }
+    &__titleRightSide {
+        & h3 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+    }
+    &__starGroupRightSide {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        // margin-bottom: 12px;
+    }
+    &__feedbackRightSide {
+        margin: 10px;
+        display: flex;
+        gap: 12px;
+        border-bottom: 1px solid #d4d4d4;
+        align-items: center;
+        padding-bottom: 12px;
+        & span {
+            color: red;
+            font-weight: 500;
+            font-size: 1.8rem;
+        }
+    }
+    &__starIcon {
+        font-size: 2rem;
+        color: gold;
+    }
+    &__rightSide {
+        width: 30%;
+        padding: 20px;
+        padding: 0;
+        box-shadow: none;
+    }
+    &__headerLeftSide {
+        // padding: 20px 10px 0;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        overflow: hidden;
+        background-color: #d8f7ff;
+        // border-bottom: 1px solid #d4d4d4;
+        & h2 {
+            color: rgb(6, 8, 51);
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            margin-left: 20px;
+        }
+    }
+    &__headerActions {
+        margin-left: 20px;
+        & button:nth-child(1) {
+            background-color: #ffffff;
+        }
+        & button:hover {
+            background-color: #ffffff;
+        }
+    }
+    &__headerLeftSideImg {
+        height: 200px;
+        overflow: hidden;
+        margin-bottom: 24px;
+    }
+    &__headerActionButton {
+        font-size: 1.8rem;
+        font-weight: 500;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding: 12px 16px;
+    }
+    &__bodyLeftSide {
+        background-color: #fff;
+        padding: 16px;
+        flex: 1;
+    }
+    &__contentBodyLeftSide1 {
+        // color: #000000e4;
+        padding: 10px;
+        margin-left: 10px;
+        & li {
+            margin-left: 32px;
+        }
+    }
+    &__contentBodyTitle {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        & span {
+            font-weight: 400;
+        }
+    }
+    &__contentRightSide {
+        margin: 24px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        color: #000000b7;
+        & span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+        & p {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+    }
+    &__rightSideItem {
+        width: 100%;
+        background-color: #fff;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 24px;
+    }
+    &__bodyRightSide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        & button {
+            width: 50%;
+        }
+        & button:nth-child(1) {
+            background-color: #d8f7ff;
+            border: 2px solid #28b4ff;
+            color: #28b4ff;
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+                background-color: #28b4ff;
+                color: #fff;
+            }
+        }
+        & button:nth-child(2) {
+            background-color: #28b4ff;
+            border: 2px solid #28b4ff;
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+                background-color: #fff;
+                color: #28b4ff;
+            }
+        }
+    }
+    &__rightSideItem2 {
+        max-height: 450px !important;
+        overflow-y: auto;
+        padding-right: 8px;
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 10px;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    }
+}
+
+
+
+

@@ -73,7 +73,7 @@
         padding: 8px 16px;
         background-color: transparent;
         transition: background-color 0.2s, color 0.2s;
-        border-radius: 0;
+        border-radius: 10px;
         outline: none;
         border: none;
         &:hover {
@@ -111,7 +111,7 @@
 
     &__desc,
     &__SubItemDesc {
-        font-size: 0.875rem;
+        font-size: 1.4rem;
         color: #00000099;
         font-weight: 400;
         margin: 0;
@@ -257,7 +257,7 @@
             width: 24px;
         }
         & input {
-            font-size: 1rem;
+            font-size: 1.6rem;
             padding: 5px 0 5px;
             border: none;
             flex: 1;
@@ -266,7 +266,7 @@
     }
     &__headerTitle {
         flex: 1;
-        font-size: 20px;
+        font-size: 2.3rem;
         font-weight: 700;
         color: #000;
     }
@@ -317,13 +317,13 @@
     }
 
     &__title {
-        font-size: 0.875rem;
+        font-size: 1.4rem;
         font-weight: 600;
         margin: 0 0 5px 0;
     }
 
     &__desc {
-        font-size: 0.75rem;
+        font-size: 1.2rem;
         color: #00000099;
         font-weight: 400;
         margin: 0;
@@ -354,7 +354,7 @@
         margin: 0;
         border-color: rgba(0, 0, 0, 0.12);
     }
-    font-size: 14px;
+    font-size: 1.4rem;
     &__items {
         width: 350px;
         padding: 16px 16px 0;
@@ -428,7 +428,7 @@
         }
         & a,
         & span:nth-child(3) {
-            font-size: 10px;
+            font-size: 1rem;
             color: #000000de;
         }
         & a {
@@ -460,7 +460,7 @@
         justify-content: space-between;
         position: relative;
         & p {
-            font-size: 20px;
+            font-size: 2rem;
             font-weight: 700;
             margin: 0;
         }
@@ -477,7 +477,7 @@
         display: flex;
         width: 148px;
         flex-direction: column;
-        font-size: 16px;
+        font-size: 1.6rem;
         border: 1px solid rgb(236, 236, 236);
         background-color: #fff;
         border-radius: 4px;
@@ -510,9 +510,10 @@
         border-radius: 20px;
         color: rgb(255, 152, 0);
         background-color: transparent;
-        font-size: 14px;
+        font-size: 1.4rem;
         font-weight: 550;
         border: none;
+        line-height: 1.75;
         &:focus {
             background-color: (255, 175, 59);
             color: white;
@@ -542,9 +543,8 @@
     }
     &__mainText {
         color: rgb(153, 153, 153);
-        font-size: 20px;
+        font-size: 2rem;
         font-weight: bold;
         margin: 0;
     }
 }
->>>>>>> 9a4218d0a02aad6100c87ba790e782b296ca878a

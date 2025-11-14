@@ -29,7 +29,7 @@ function StudentClassItem() {
             <div className={styles.StudentClassItem__main}>
                 <div className={styles.StudentClassItem__header}>
                     <div className={styles.StudentClassItem__headerImage}>
-                        <img src="/images/StudentClassItem-background.jpg" alt="Class WE3" />
+                        <img src="/images/defaultBanner3.jpg" alt="Class WE3" />
                     </div>
                     <div className={styles.StudentClassItem__headerContainer}>
                         <div className={styles.StudentClassItem__headerTitle}>

@@ -1,0 +1,254 @@
+﻿html {
+    overflow-y: hidden;
+}
+.StudentMarketplace {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+    }
+    &__headerContainer {
+        flex-shrink: 0;
+        height: 60px;
+        display: flex;
+        padding: 10px 10px 10px 0;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.1), 0px 4px 5px 0px rgba(0, 0, 0, 0.1),
+            0px 1px 10px 0px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        background-color: #fff;
+        z-index: 10;
+    }
+    &__headerSearch {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        padding: 5px !important;
+        border-radius: 30px !important;
+        background-color: transparent;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+        & input {
+            outline: none;
+            border: 0px;
+            box-sizing: content-box;
+            background: none;
+            height: 1.4375em;
+            margin: 0px;
+            display: block;
+            min-width: 0px;
+            width: 100%;
+            font-size: 1.4rem;
+            animation-name: mui-auto-fill-cancel;
+            animation-duration: 10ms;
+            padding: 8.5px 0px 8.5px 14px;
+        }
+    }
+    &__headerSearchInputIcon {
+        margin: 0 14px 0 8px;
+        font-size: 2.4rem;
+    }
+    &__headerFilter {
+        font-size: 2.4rem;
+        width: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__body {
+        flex: 1;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 10px;
+        /* Custom scrollbar */
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    }
+    &__cardItems {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding-bottom: 100px;
+        margin-top: 20px;
+    }
+    &__cardItem {
+        width: calc(25% - 15px);
+        position: relative;
+        padding: 8px;
+        border-radius: 18px;
+        background-color: #fff;
+        box-shadow: 2px 4px 10px 0 rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: 0.5s;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    &__cardItem:hover {
+        transform: translateY(-10px);
+        & .StudentMarketplace__cardItemBuy {
+            display: flex;
+        }
+    }
+    &__cardItemTitle {
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+    &__cardItemContent {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    &__cardItemImg {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 180px;
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__cardItemBuy {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: #0000008a;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        & button {
+            margin: 0 10px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            height: 40px;
+        }
+    }
+    &__cardItemDetailView {
+        border: 2px solid #fff !important;
+    }
+    &__cardItemBuyNow {
+        background-color: rgb(40, 180, 255);
+        border: 2px solid rgb(40, 180, 255);
+        &:hover {
+            background-color: #fff;
+            color: rgb(40, 180, 255);
+        }
+    }
+    &__cardItemLeft {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+    &__cardItemLevel,
+    &__cardItemTime {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 1.4rem;
+        color: #0000007c;
+        font-weight: 500;
+    }
+    &__cardItemLevelIcon {
+        color: rgb(40, 180, 255);
+        font-size: 1.7rem;
+    }
+    &__cardItemTimeIcon {
+        color: rgb(234, 75, 75);
+        font-size: 1.7rem;
+    }
+    &__cardItemRight {
+        border-top: 1px dashed #0000002b;
+    }
+    &__cardItemPrice {
+        font-size: 2rem;
+        font-weight: 700;
+        color: rgb(40, 180, 255);
+        margin: 8px 0 0 4px;
+    }
+    &__noResults {
+        width: 100%;
+        text-align: center;
+        padding: 40px 20px;
+        color: #666;
+        font-size: 1.6rem;
+    }
+    &__feedbackRightSide {
+        margin: 0 10px 10px;
+        display: flex;
+        gap: 12px;
+        border-bottom: 1px solid #d4d4d4;
+        align-items: center;
+        padding-bottom: 12px;
+        & span {
+            color: red;
+            font-weight: 500;
+            font-size: 1.4rem;
+        }
+    }
+    &__starIcon {
+        font-size: 1.6rem;
+        color: gold;
+    }
+    &__starGroupRightSide {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    &__contentBodyTitle {
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+    &__contentBodyLeftSide1 {
+        padding: 10px;
+        & li {
+            margin-left: 32px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            & .icon {
+                color: green;
+            }
+        }
+    }
+}
+:global(.ant-modal-title) {
+    font-size: 24px !important;
+    font-weight: 600;
+}

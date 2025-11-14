@@ -1,5 +1,6 @@
 .Classes {
-    // font-family: Roboto, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+        'Open Sans', 'Helvetica Neue', sans-serif;
     &__main {
         display: flex;
         flex-direction: column;
@@ -32,7 +33,7 @@
     &__header {
         box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px,
             rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
-        width: 85%;
+        width: 100%;
         height: 48px;
         position: sticky;
         border-radius: 5px;
@@ -48,7 +49,7 @@
         margin-top: 11px;
         position: sticky;
         border-radius: 5px;
-        & p{
+        & p {
             margin: 0;
         }
     }
@@ -66,7 +67,7 @@
         }
     }
     &__body {
-        width: 85%;
+        width: 100%;
         margin: 0 auto;
     }
     &__containerItem {
@@ -83,7 +84,7 @@
     &__supplementCenter span {
         font-weight: 500;
     }
-    &__itemSupplement{
+    &__itemSupplement {
         display: flex;
         justify-content: space-between;
         margin-top: 10px;

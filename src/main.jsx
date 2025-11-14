@@ -1,9 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import './components/GlobalStyle';
-import { AuthProvider } from './context/AuthContext.jsx'; // đường dẫn tùy bạn
+import './components/GlobalStyle/GlobalStyle.scss';
+import './font-size-override.css';
+import { AuthProvider } from './context/AuthContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <AuthProvider>
