@@ -33,6 +33,9 @@ import { Link,Navigate,useLocation,useNavigate  } from 'react-router-dom';
 import Events from '../DiaLog/Events';
 import PostDialog from '../DiaLog/PostDialog';
 import { useAuth } from '~/context/authContext';
+import { FaWandMagicSparkles } from "react-icons/fa6";
+
+
 const cx = classNames.bind(styles);
 
 const iconBtn = [
@@ -132,14 +135,10 @@ function Header() {
     
     const [showQuickAdd, setShowQuickAdd] = useState(false);
     console.log('showQuickAdd:', showQuickAdd);
-    const [isGridMenuOpen, setIsGridMenuOpen] = useState(false);
 
     const navigate = useNavigate();
     // Helper function để handle navigation
-    const handleQuickAdd = (path) => {
-        setShowQuickAdd(false); // Đóng menu
-        navigate(path); // Điều hướng đến path
-    };
+    
 
     const quickAddItems = [
         {
@@ -149,6 +148,7 @@ function Header() {
                         display: 'flex',
                         alignItems: 'center',
                         padding: '12px 16px',
+                        textAlign: 'center'
                     }}
                 >
                     <button
@@ -156,7 +156,6 @@ function Header() {
                             e.preventDefault();
                             e.stopPropagation();
                             setShowQuickAdd(false);
-                            setIsGridMenuOpen(true);
                         }}
                         style={{
                             display: 'flex',
@@ -185,60 +184,70 @@ function Header() {
                 </div>
             ),
         },
+        {divider: true},
         {
             id: 'add-user',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm học viên',
             path: '/student/add'
         },
+        {divider: true},
         {
             id: 'add-HR',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới nhân sự',
             path: '/HR/add'
         },
+        {divider: true},
         {
             id: 'add-receipt',
             icon: <CiReceipt size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới phiếu thu',
             path: '/receipt/add'
         },
+        {divider: true},
         {
             id: 'add-invoice',
             icon: <FaFileInvoiceDollar size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới phiếu chi',
             path: '/invoice/add'
         },
+        {divider: true},
         {
             id: 'add-order',
             icon: <BsCartPlus size={26} style={{ color: '#828282' }} />,
             title: 'Tạo đơn hàng',
             path: '/order/add'
         },
+        {divider: true},
         {
             id: 'add-schedule',
             icon: <FaBookMedical size={26} style={{ color: '#828282' }} />,
             title: 'Thêm lịch học',
             path: '/schedule/add'
         },
+        {divider: true},
         {
             id: 'add-classroom',
             icon: <FaUsers size={26} style={{ color: '#828282' }} />,
             title: 'Thêm lớp học',
             path: '/classroom/add'
         },
+        {divider: true},
         {
             id: 'add-email',
             icon: <FaRegEnvelope size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới chiến dịch Email',
             path: '/email/add'
         },
+        {divider: true},
         {
             id: 'add-SMS',
             icon: <FaRegPaperPlane size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới chiến dịch SMS',
             path: '/SMS/add'
         },
+        {divider: true},
     ];
 
     const iconGridItems = [
@@ -254,28 +263,7 @@ function Header() {
                         width: '100%',
                     }}
                 >
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setShowQuickAdd(!showQuickAdd); // Toggle instead of just true
-                        }}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            background: 'none',
-                            border: '1px solid rgba(0,0,0,0.1)',
-                            cursor: 'pointer',
-                            // padding: '4px',
-                            borderRadius: '50%',
-                            fontSize: '14px',
-                            color: '#65676b',
-                            backgroundColor: '##e9e9e9',
-                            marginRight: 10,
-                        }}
-                    >
-                        <ChevronLeft size={22} />
-                    </button>
+                    
                     <h3 style={{ margin: 0, fontSize: '20px', fontWeight: 600 }}>Menu</h3>
                     <div style={{ width: '100px' }}></div>
                 </div>
@@ -648,9 +636,24 @@ function Header() {
                             items={iconPlusItems}
                             width="medium"
                         />
+
+
+                           <Dropdown
+                            button={
+                                <button className={cx('action-btn')}>
+                                    <span>
+                                        <FaWandMagicSparkles size={26} />
+                                    </span>
+                                </button>
+                            }
+                            items={quickAddItems}
+                            width="medium"
+                        /> 
+
+
                         {/* Container cho Grid Dropdown và Quick Add */}
                         <div style={{ position: 'relative', display: 'inline-block' }}>
-                            {/* Quick Add Dropdown */}
+                            {/* Quick Add Dropdown
                             {showQuickAdd && isGridMenuOpen && (
                                 <div className={cx('quick-add-menu')}>
                                     <div className={cx('scroll-bar')}>
@@ -703,7 +706,7 @@ function Header() {
                                         })}
                                     </div>
                                 </div>
-                            )}
+                            )} */}
 
                             {/* MENU DROPDOWN (Grid) */}
                             <Dropdown
