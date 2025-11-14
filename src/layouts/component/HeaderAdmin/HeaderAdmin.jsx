@@ -32,7 +32,7 @@ import { ChevronDown, ChevronLeft } from 'lucide-react';
 import { Link,Navigate,useLocation,useNavigate  } from 'react-router-dom';
 import Events from '../DiaLog/Events';
 import PostDialog from '../DiaLog/PostDialog';
-import AuthService from '~/api/AuthService';
+import { useAuth } from '~/context/authContext';
 const cx = classNames.bind(styles);
 
 const iconBtn = [
@@ -61,13 +61,15 @@ function Header() {
 
     // const [isActive, setIsActive] = useState(1);
     const location = useLocation();
+    const {logout} = useAuth();
+    const [activeComponent, SetActiveComponent] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
+
 
     // ====================
     // DATA CHO DROPDOWN CREATE
     // ====================
 
-    const [activeComponent, SetActiveComponent] = useState(null);
-    const [isOpen, setIsOpen] = useState(false);
     const iconPlusItems = [
         {
             id: 'post',
@@ -428,8 +430,7 @@ function Header() {
     // xử lý logout cho admin
     const handleLogout = async () => {
         try {
-        const response = await AuthService.logout();
-        console.log(response);
+        await logout();
         
         // Xóa tất cả cookies liên quan
         document.cookie.split(";").forEach((c) => {
@@ -443,7 +444,7 @@ function Header() {
         sessionStorage.clear();
         
         // // Navigate về login
-        navigate('/');
+        navigate('/login');
     } catch (error) {
         console.error('Logout failed:', error);
     }
@@ -453,7 +454,7 @@ function Header() {
             id: 'manager',
             icon: <img src="/images/logo2019_png_1.png" alt="logo" style={{ color: '#828282' }} />,
             title: 'Quản lý',
-            onClick: () => console.log('click manager item'),
+            onClick: () => navigate('/user'),
         },
         { divider: true },
 
@@ -475,8 +476,9 @@ function Header() {
             id: 'dark-mode',
             icon: <FaMoon size={26} style={{ color: '#828282' }} />,
             title: 'Chế độ tối',
-            description: 'Chuyển sang chế độ tối',
-            onClick: () => console.log('Click dark mode item'),
+            description:'Chuyển sang chế độ tối',
+            onClick: console.log("Dark mode")
+            ,
         },
         {
             id: 'language-mode',

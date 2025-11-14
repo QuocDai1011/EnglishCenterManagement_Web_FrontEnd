@@ -47,12 +47,6 @@ function WorkSchedule({open, onClose, date}) {
         });
     };
 
-    const handleSwitchChange = (event) => {
-        setFormData({
-            ...formData,
-            createForOthers: event.target.checked,
-        });
-    };
 
     const handleSubmit = () => {
         alert("Submit thành công")
