@@ -3,7 +3,7 @@ import React from 'react';
 import { FaHome, FaUsers, FaMoon } from 'react-icons/fa';
 import { FaUsersBetweenLines } from 'react-icons/fa6';
 import styles from './Header.module.scss';
-import { href, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
     BiSolidCalendarStar,
     BiSolidCalendarEdit,

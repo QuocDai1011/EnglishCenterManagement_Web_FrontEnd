@@ -11,7 +11,7 @@ import { publicRoutes } from './routes';
 import SignInForm from './pages/Login/signin-form';
 import SignUpForm from './pages/Logup/signup-form';
 import HomePage from './pages/Home/HomePage';
-import Admin from './pages/Admin';
+import Admin from './pages/RoleAdmin/Admin';
 
 function App() {
     return (

@@ -3,6 +3,7 @@ import style from './DropdownAdmin.module.scss'
 import className from 'classnames/bind'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 const cx = className.bind(style);
 
 function Dropdown({ 
@@ -15,7 +16,11 @@ function Dropdown({
     onOpenChange  // Callback khi dropdown open/close
 }) {
     const [openSubmenu, setOpenSubmenu] = useState(null);
+    const navigate = useNavigate();
 
+    const handleNavigate = (path) => {
+        navigate(path)
+    }
     return (
         <Menu as="div" className={cx('dropdown-wrapper', className)}>
             {({ open }) => {
@@ -51,7 +56,7 @@ function Dropdown({
                                         <div
                                          key={`header-${index}`}
                                          
-                                          style={{ justifyContent: item.justify || 'center' }} id={`header${index}`} className={cx('dropdown-header')} >
+                                          style={{ justifyContent: item.justify || 'center' , textAlign:'center'}} id={`header${index}`} className={cx('dropdown-header')} >
                                             {item.header}
                                         </div>
                                     );
@@ -145,14 +150,20 @@ function Dropdown({
 
                                 // Item thường
                                 return (
-                                    <MenuItem key={item.id || index}>
+                                    <MenuItem key={item.id || index} >
                                         {({ focus }) => (
                                             <button
                                                 className={cx('dropdown-item', { 
                                                     focused: focus,
-                                                    'has-description': item.description 
+                                                    'has-description': item.description,
                                                 })}
-                                                onClick={item.onClick}
+                                                onClick={() => {
+                                                    if (item.path) {
+                                                        handleNavigate(item.path);
+                                                    }
+                                                    item.onClick?.();
+                                                }}  
+
                                             >
                                                 {item.icon && <div className={cx('item-icon')}>{item.icon}</div>}
                                                 <div className={cx('item-content')}>

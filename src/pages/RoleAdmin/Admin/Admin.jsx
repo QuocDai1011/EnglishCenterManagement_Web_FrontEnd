@@ -3,42 +3,15 @@ import classNames from 'classnames/bind';
 import Header from '~/layouts/component/HeaderAdmin/HeaderAdmin'
 import SideBar from '~/layouts/component/Sidebar/Sidebar'
 import Post from '~/layouts/component/Post/Post';
-import { MessageCircle, Send } from 'lucide-react';
-import { LiaRobotSolid } from "react-icons/lia";
-import { PiHandsClapping } from "react-icons/pi";
 import ChatBox from '~/layouts/component/ChatBox';
-
-import { useState, useEffect } from 'react';
 const cx = classNames.bind(styles);
 
 function Admin() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [text, setText] = useState("");
-    const [showInput, setShowInput] = useState(false);
-
-    const handleClickChat = () =>{
-        const text = document.getElementById('text');
-        const box = document.getElementById('box');
-        const content = document.getElementById('content');
-
-
-        box.style.display = 'none';
-        text.style.display = 'flex';
-        content.style.display = 'flex';
-        setShowInput(!showInput);
-    }
-
-    const handleClick = () => {
-        setIsOpen(!isOpen);
-    }
-
-
-
 
     return (
         <>
-            <Header />
             <div className={cx('container')}>
+                <Header />
                 <SideBar />
 
                 <div className={cx('main')}>

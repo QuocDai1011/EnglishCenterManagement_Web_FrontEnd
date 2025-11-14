@@ -1,0 +1,44 @@
+/* Calendar.module.scss */
+.CalendarContainer {
+  :global(.fc) {
+    background-color: white;
+    padding: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 1px -1px,
+      rgba(0, 0, 0, 0.14) 0px 1px 1px 0px,
+      rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px;
+    
+  }
+ 
+  /* Style nhẹ cho các phần tử */
+  :global(.fc-daygrid-day-number) {
+    color: rgb(68, 67, 67);
+    font-weight: 400;
+  }
+
+  :global(.fc-button) {
+    background-color: #eee;
+    border-color: #eee;
+    color: #000;
+  }
+
+  :global(.fc-button-active),
+  :global(.fc-button-primary:not(:disabled).fc-button-active),
+  :global(.fc-button-primary:hover) {
+    background-color: #bdbdbd;
+    border-color: #eee;
+    color: #000;
+  }
+
+  :global(.fc-toolbar-title){
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  :global(.fc-button:disabled) {
+    background-color: #bdbdbd;
+    color: #000;
+    border-color: #bdbdbd;
+  }
+}

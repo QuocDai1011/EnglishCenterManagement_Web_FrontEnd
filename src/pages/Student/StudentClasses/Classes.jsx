@@ -3,7 +3,7 @@ import styles from './Classes.module.scss';
 import { FaUsersBetweenLines, FaLocationDot } from 'react-icons/fa6';
 import { HiOutlineUserGroup } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 function Classes() {
     const navigate = useNavigate();
     const [classesData, setClassesData] = useState([]);
