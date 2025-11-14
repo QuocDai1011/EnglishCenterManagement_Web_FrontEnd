@@ -23,6 +23,7 @@ import FullCalendarItem from '~/layouts/component/FullCalendarItem';
 import StudentSpace from '~/layouts/component/StudentSpace';
 import AddTeacher from '~/pages/RoleAdmin/AddTeacher';
 import StudentMarketplace from '~/pages/Student/StudentMarketplace';
+import StudentCheckout from '~/layouts/component/StudentCheckout';
 
 // ============================
 // CÁC TRANG CÔNG KHAI (Ai cũng truy cập được)
@@ -50,7 +51,8 @@ const publicRoutes = [
     { path: '/student/space/classes', component: Classes, layout: HeaderAndNavbar },
     { path: '/student/space/classes/:id', component: StudentClassItem, layout: HeaderAndNavbar },
     { path: '/student/space/people/calendar', component: FullCalendarItem, layout: HeaderAndNavbar }, 
-    { path: '/student/space/marketplace', component: StudentMarketplace, layout: HeaderAndNavbar },
+    { path: '/student/space/marketplace', component: StudentMarketplace, layout: HeaderAndNavbar }, 
+    { path: '/student/space/checkout', component: StudentCheckout, layout: HeaderAndNavbar },
 ];
 
 // ============================
