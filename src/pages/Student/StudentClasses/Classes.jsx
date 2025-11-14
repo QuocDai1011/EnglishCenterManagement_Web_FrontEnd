@@ -18,7 +18,8 @@ function Classes() {
         try {
             const response = await fetch(API_BASE + 'api/Student/get-classes/' + idStudent);
             const data = await response.json();
-            setClassesData(data.classes);
+            const activeAndPaidClasses = data.classes.filter((classItem) => classItem.status === true);
+            setClassesData(activeAndPaidClasses);
         } catch (error) {
             console.error('Error fetching classes:', error);
         }
@@ -45,7 +46,7 @@ function Classes() {
                             >
                                 <div className={styles.Classes__containerItem}>
                                     <div className={styles.Classes__itemImage}>
-                                        <img src="/images/avatarStudent.jpg" alt="Class WE3" />
+                                        <img src="/images/defaultBanner3.jpg" alt="Class WE3" />
                                     </div>
                                     <div className={styles.Classes__contentContainer}>
                                         <p className={styles.Classes__contentTitle}>{classItem.className}</p>
