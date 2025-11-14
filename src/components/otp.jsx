@@ -7,41 +7,35 @@ import { toast } from 'sonner';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
-export function InputOTPDemo({ onClose, data }) {
+export function InputOTPDemo({ data, mode, onClose, onVerified }) {
     const modalRef = useRef(null);
     const [otp, setOtp] = useState('');
     const [loading, setLoading] = useState(false);
+    const firstInputRef = useRef(null);
     const navigate = useNavigate();
 
-    // Get both sendOTP and verifyOTP from useAuth
-    const { sendOTP, verifyOTP } = useAuth();
-    const { register } = useAuth();
+    const { sendOTP, verifyOTP, register } = useAuth();
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
-                onClose?.();
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [onClose]);
+        if (modalRef.current) {
+            const firstInput = modalRef.current.querySelector('input');
+            if (firstInput) firstInput.focus();
+        }
+    }, []);
 
-    // Resend OTP handler
     const handleSendOTP = async () => {
         try {
             setLoading(true);
-            await sendOTP(data.email);
+            await sendOTP(data.email, mode);
             toast.success('Mã OTP đã được gửi lại đến email của bạn.');
-            // Toast is handled in AuthProvider
         } catch (error) {
             console.error('Lỗi khi gửi lại OTP:', error);
+            toast.error('Gửi mã OTP thất bại, vui lòng thử lại!');
         } finally {
             setLoading(false);
         }
     };
 
-    // Verify OTP handler
     const handleVerifyOTP = async () => {
         if (otp.length !== 6) {
             toast.error('Vui lòng nhập đủ 6 chữ số OTP');
@@ -50,52 +44,60 @@ export function InputOTPDemo({ onClose, data }) {
         try {
             setLoading(true);
             await verifyOTP(data.email, otp);
-            await register(data);
-            toast.success('Xác thực OTP thành công! Vui lòng đăng nhập lại.');
-            onClose?.();
-            // Use navigate instead of Navigate component
-            navigate('/login', { replace: true });
+
+            if (mode === 'register') {
+                await register(data);
+                toast.success('Xác thực OTP thành công! Vui lòng đăng nhập lại.');
+                navigate('/login', { replace: true });
+            } else if (mode === 'resetPassword') {
+                toast.success('Xác thực OTP thành công! Vui lòng nhập mật khẩu mới.');
+                onVerified?.(); // gọi callback cho parent render ResetPassword
+                onClose?.();
+            }
         } catch (error) {
             console.error('Lỗi khi xác thực OTP:', error);
+            toast.error('Xác thực OTP thất bại.');
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-            <div className="min-h-screen flex items-center justify-center">
-                <Card ref={modalRef} className="w-full max-w-md shadow-md border border-gray-200">
-                    <CardContent className="flex flex-col items-center gap-6 py-10 px-6">
-                        <div className="text-center space-y-2">
-                            <h1 className="text-2xl font-semibold tracking-tight text-gray-800">Nhập mã OTP</h1>
-                            <p className="text-gray-500 text-sm">
-                                Mã xác thực gồm 6 chữ số đã được gửi đến email của bạn: **{data.email}**
+        <div className="fixed inset-0 z-[50] flex items-center justify-center bg-black/[0.4]">
+            <div className="min-h-[100vh] flex items-center justify-center">
+                <Card
+                    ref={modalRef}
+                    className="w-full max-w-[400px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] border border-gray-200"
+                >
+                    <CardContent className="flex flex-col items-center gap-[24px] py-[40px] px-[24px]">
+                        <div className="text-center space-y-[8px]">
+                            <h1 className="text-[24px] font-semibold tracking-tight text-gray-800">Nhập mã OTP</h1>
+                            <p className="text-gray-500 text-[14px]">
+                                Mã xác thực gồm 6 chữ số đã được gửi đến email của bạn: <strong>{data.email}</strong>
                             </p>
                         </div>
 
-                        {/* Ô nhập OTP */}
-                        <div className="flex flex-col items-center gap-4">
-                            <Label className="text-gray-700 font-medium">Mã OTP</Label>
-                            <InputOTP maxLength={6} value={otp} onChange={setOtp} className="flex gap-2">
-                                <InputOTPGroup className="flex gap-2">
+                        <div className="flex flex-col items-center gap-[16px]">
+                            <Label className="text-gray-700 font-medium text-[14px]">Mã OTP</Label>
+                            <InputOTP maxLength={6} value={otp} onChange={setOtp} className="flex gap-[8px]">
+                                <InputOTPGroup className="flex gap-[8px]">
                                     {[...Array(6)].map((_, i) => (
                                         <InputOTPSlot
                                             key={i}
                                             index={i}
-                                            className="w-12 h-12 text-lg border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                            ref={i === 0 ? firstInputRef : null}
+                                            className="w-[48px] h-[48px] text-[18px] border rounded-[8px] focus:ring-[2px] focus:ring-indigo-500 focus:border-indigo-500"
                                         />
                                     ))}
                                 </InputOTPGroup>
                             </InputOTP>
                         </div>
 
-                        {/* Nút xác nhận */}
-                        <div className="w-full flex flex-col gap-3">
+                        <div className="w-full flex flex-col gap-[12px]">
                             <Button
                                 disabled={loading || otp.length !== 6}
                                 onClick={handleVerifyOTP}
-                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white h-[40px] text-[16px]"
                             >
                                 {loading ? 'Đang xử lý...' : 'Xác nhận'}
                             </Button>
@@ -104,7 +106,7 @@ export function InputOTPDemo({ onClose, data }) {
                                 disabled={loading}
                                 onClick={handleSendOTP}
                                 variant="link"
-                                className="text-sm text-indigo-600 hover:underline"
+                                className="text-[14px] text-indigo-600 hover:underline"
                             >
                                 {loading ? 'Đang gửi...' : 'Gửi lại mã OTP'}
                             </Button>

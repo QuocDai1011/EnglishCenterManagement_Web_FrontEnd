@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
-import { toast } from 'sonner';
 import { authApi } from './authApi';
 
 const AuthContext = createContext(null);
@@ -15,10 +14,9 @@ export const AuthProvider = ({ children }) => {
             const response = await authApi.login(email, password);
             // Make sure we update the user state after successful login
             await fetchCurrentUser();
-            toast.success('Đăng nhập thành công!');
             return response;
         } catch (error) {
-            toast.error(error.response?.data?.Message || 'Đăng nhập thất bại');
+            console.error('Lỗi khi đăng nhập', error);
             throw error;
         }
     };
@@ -47,10 +45,9 @@ export const AuthProvider = ({ children }) => {
         try {
             await authApi.logout(); // Call logout API if you have one
             setUser(null);
-            toast.success('Đăng xuất thành công');
         } catch (error) {
             console.error('Logout error:', error);
-            toast.error('Có lỗi xảy ra khi đăng xuất');
+            throw error;
         }
     };
 
@@ -60,14 +57,12 @@ export const AuthProvider = ({ children }) => {
     }, [user, isLoading]);
 
     // Add sendOTP function
-    const sendOTP = async (email) => {
+    const sendOTP = async (email, mode) => {
         try {
-            await authApi.sendOTP(email);
-            toast.success('Mã OTP đã được gửi đến email của bạn');
+            await authApi.sendOTP(email, mode);
             return true;
         } catch (error) {
-            const message = error.response?.data?.message || 'Không thể gửi mã OTP';
-            toast.error(message);
+            console.error('Lỗi khi gửi OTP', error);
             throw error;
         }
     };
@@ -76,11 +71,9 @@ export const AuthProvider = ({ children }) => {
     const verifyOTP = async (email, otp) => {
         try {
             await authApi.verifyOTP(email, otp);
-            toast.success('Xác thực OTP thành công');
             return true;
         } catch (error) {
-            const message = error.response?.data?.message || 'Mã OTP không hợp lệ';
-            toast.error(message);
+            console.error('Lỗi xác thực OTP', error);
             throw error;
         }
     };
@@ -88,10 +81,28 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         try {
             await authApi.register(userData);
-            toast.success('Đăng ký thành công! Vui lòng đăng nhập.');
         } catch (error) {
             console.error('Registration error:', error);
-            toast.error('Có lỗi xảy ra khi đăng ký');
+            throw error;
+        }
+    };
+
+    const sendResetPassword = async (email, mode) => {
+        try {
+            await authApi.sendResetPassword(email, mode); // gửi thẳng email
+            return true;
+        } catch (error) {
+            console.error('Send reset password error:', error);
+            throw error;
+        }
+    };
+
+    const resetPassword = async (email, newPassword, confirmPassword) => {
+        try {
+            await authApi.resetPassword(email, newPassword, confirmPassword);
+        } catch (error) {
+            console.error('Reset password error:', error);
+            throw error;
         }
     };
 
@@ -105,6 +116,8 @@ export const AuthProvider = ({ children }) => {
         sendOTP,
         verifyOTP,
         register,
+        sendResetPassword,
+        resetPassword,
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

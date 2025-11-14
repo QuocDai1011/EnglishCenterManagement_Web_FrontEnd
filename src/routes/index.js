@@ -45,8 +45,24 @@ const publicRoutes = [
 // CÁC TRANG YÊU CẦU ĐĂNG NHẬP
 // ============================
 const privateRoutes = [
-  { path: '/home', component: Home, layout: DefaultLayout },
-  { path: '/admin', component: Admin, layout: HeaderOnly, roles: ['Admin'] },
+    {
+        path: '/',
+        component: Home,
+        layout: DefaultLayout,
+        roles: ['Student'], // Student mới vào được HomePage
+    },
+    {
+        path: '/admin',
+        component: Admin,
+        layout: DefaultLayout,
+        roles: ['Admin'], // Chỉ Admin mới vào Admin page
+    },
+    {
+        path: '/teacher',
+        component: Admin, // hoặc TeacherPage nếu có
+        layout: DefaultLayout,
+        roles: ['Teacher'],
+    },
 ];
 
 export { publicRoutes, privateRoutes };
