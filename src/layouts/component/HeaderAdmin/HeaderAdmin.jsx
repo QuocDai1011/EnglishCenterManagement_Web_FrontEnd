@@ -29,9 +29,10 @@ import { FaRegEnvelope } from 'react-icons/fa6';
 import React, { useState } from 'react'; // Thêm useState
 import Dropdown from '~/layouts/component/DropdownAdmin/DropdownAdmin';
 import { ChevronDown, ChevronLeft } from 'lucide-react';
-import { Link,useLocation,useNavigate  } from 'react-router-dom';
+import { Link,Navigate,useLocation,useNavigate  } from 'react-router-dom';
 import Events from '../DiaLog/Events';
 import PostDialog from '../DiaLog/PostDialog';
+import AuthService from '~/api/AuthService';
 const cx = classNames.bind(styles);
 
 const iconBtn = [
@@ -423,6 +424,30 @@ function Header() {
     // ====================
     // DATA CHO DROPDOWN USER/ACCOUNT (như ảnh 1)
     // ====================
+
+    // xử lý logout cho admin
+    const handleLogout = async () => {
+        try {
+        const response = await AuthService.logout();
+        console.log(response);
+        
+        // Xóa tất cả cookies liên quan
+        document.cookie.split(";").forEach((c) => {
+            document.cookie = c
+                .replace(/^ +/, "")
+                .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        
+        // Xóa localStorage/sessionStorage nếu có
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        // // Navigate về login
+        navigate('/');
+    } catch (error) {
+        console.error('Logout failed:', error);
+    }
+    }
     const iconCaretDownItems = [
         {
             id: 'manager',
@@ -482,7 +507,7 @@ function Header() {
             id: 'sign out',
             icon: <FaSignOutAlt size={26} style={{ color: '#828282' }} />,
             title: 'Đăng xuất',
-            onClick: () => console.log('Click sign out item'),
+            onClick: handleLogout
         },
         {
             header: (

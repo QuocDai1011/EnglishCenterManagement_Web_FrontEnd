@@ -56,7 +56,7 @@ function Sidebar() {
             id: 1,
             image: '/images/myCalendar.png',
             label: 'Lịch cá nhân',
-            link: '/calendar',
+            link: '/people/calendar',
         },
         {
             id: 2,
