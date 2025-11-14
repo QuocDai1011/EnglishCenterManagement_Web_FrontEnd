@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { toast } from 'sonner';
@@ -9,6 +9,20 @@ const ResetPassword = ({ email, onClose }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const { resetPassword } = useAuth();
+    const ref = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                onClose?.(); // click ngoài thì gọi onClose để đóng modal
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
 
     const handleSubmit = async () => {
         if (!password || !confirmPassword) {
@@ -35,7 +49,7 @@ const ResetPassword = ({ email, onClose }) => {
 
     return (
         <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/[0.4]">
-            <div className="bg-white p-6 rounded-lg w-full max-w-[400px] flex flex-col gap-4">
+            <div ref={ref} className="bg-white p-6 rounded-lg w-full max-w-[400px] flex flex-col gap-4">
                 <h2 className="text-[16px] font-semibold text-center mb-2">Đặt lại mật khẩu</h2>
                 <p className="text-center text-gray-600 text-[10px] mb-4">Email: {email}</p>
                 <div className="flex flex-col gap-4">
