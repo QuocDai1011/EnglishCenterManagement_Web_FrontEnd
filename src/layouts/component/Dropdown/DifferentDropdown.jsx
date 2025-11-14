@@ -19,7 +19,6 @@ function DifferentDropdown({ label = 'More', links = [] }) {
         e.preventDefault();
         e.stopPropagation();
         if (link.elements) {
-            // mở/đóng subItem
             setOpenSub(openSub === idx ? null : idx);
         } else if (link.href) {
             window.location.assign(link.href);
@@ -29,14 +28,10 @@ function DifferentDropdown({ label = 'More', links = [] }) {
     const handleSubItemSelect = (e, sub, parentIdx) => {
         e.preventDefault();
         e.stopPropagation();
-
-        // cập nhật subItem đang được chọn cho cha
         setSelectedSubItems((prev) => ({
             ...prev,
             [parentIdx]: sub,
         }));
-
-        // đóng subMenu sau khi chọn
         setOpenSub(null);
     };
 
@@ -59,7 +54,7 @@ function DifferentDropdown({ label = 'More', links = [] }) {
                     <button className={styles.DifferentDropdown__user}>
                         <img
                             className={styles.DifferentDropdown__userImg}
-                            src="/images/LogoStudentHeader.png"
+                            src="/images/avatarStudent.jpg"
                             alt="English Center Header Logo"
                         />
                         <p className={styles.DifferentDropdown__userName}>Quốc Đại</p>

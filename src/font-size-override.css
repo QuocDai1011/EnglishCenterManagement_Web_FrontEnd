@@ -1,0 +1,4 @@
+﻿/* Force html font-size override - MUST be last import */
+html {
+    font-size: 62.5% !important;
+}

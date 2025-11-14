@@ -16,6 +16,7 @@
             padding: 10px 10px 0;
             margin: 0;
             font-weight: bolder;
+            font-size: 2.4rem;
         }
     }
     &__memberLists {
@@ -58,9 +59,10 @@
     &__search {
         margin-right: 10px;
         border-bottom: 1px solid #bdbdbd;
+        display: flex;
         & input {
             border: none;
-            font-size: 16px;
+            font-size: 1.6rem;
             animation-name: mui-auto-fill-cancel;
             animation-duration: 10ms;
             padding: 1px 0px 5px;
@@ -71,7 +73,7 @@
             opacity: 0.6;
         }
     }
-    & .StudentHr{
+    & .StudentHr {
         border-top: 2px solid #bdbdbd;
     }
 }

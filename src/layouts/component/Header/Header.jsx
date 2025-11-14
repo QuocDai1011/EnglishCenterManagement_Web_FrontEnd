@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { FaHome, FaUsers, FaMoon} from 'react-icons/fa';
+import { FaHome, FaUsers, FaMoon } from 'react-icons/fa';
 import { FaUsersBetweenLines } from 'react-icons/fa6';
 import styles from './Header.module.scss';
 import { href, NavLink } from 'react-router-dom';
@@ -13,7 +13,7 @@ import {
 } from 'react-icons/bi';
 import { BsFillQuestionCircleFill } from 'react-icons/bs';
 import { ImBooks } from 'react-icons/im';
-import { PiSealWarning } from "react-icons/pi";
+import { PiSealWarning } from 'react-icons/pi';
 import { MenuDropdown, ActivityDropdown, DifferentDropdown, NotificationDropdown, MessageDropdown } from '../Dropdown';
 function Header() {
     const accountLinks = [
@@ -165,12 +165,12 @@ function Header() {
                 </div>
             </div>
             <div className={styles.HeaderStudent__SupportFeature}>
-                <button className={styles.HeaderStudent__AvatarUser}>
+                <NavLink to="/student/space/user" className={styles.HeaderStudent__AvatarUser}>
                     <div className={styles.HeaderStudent__Avatar}>
-                        <img src="/images/LogoStudentHeader.png" alt="Ảnh đại diện" />
+                        <img src="/images/avatarStudent.jpg" alt="Ảnh đại diện" />
                     </div>
                     <span className={styles.HeaderStudent__Name}>Đại</span>
-                </button>
+                </NavLink>
                 <ActivityDropdown label="" links={accountLinks} />
                 <MenuDropdown label="" links={MenuLinks} />
                 <MessageDropdown label="" links={MessageLinks} />

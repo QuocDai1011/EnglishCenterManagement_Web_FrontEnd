@@ -1,4 +1,4 @@
-import Login from '~/pages/Login';
+﻿import Login from '~/pages/Login';
 import Admin from '~/pages/Admin';
 import User from '~/pages/User';
 import MyClass from '~/pages/MyClass';
@@ -19,26 +19,29 @@ import StudentClassItem from '~/layouts/component/StudentClassItem';
 import FullCalendarItem from '~/layouts/component/FullCalendarItem';
 import StudentSpace from '~/layouts/component/StudentSpace';
 
+import StudentMarketplace from '~/pages/Student/StudentMarketplace';
+import StudentCourseItem from '~/layouts/component/StudentMarketplace';
+import StudentCheckout from '~/layouts/component/StudentCheckout';
+import Student from '~/pages/Student/ManagementStudent';
+import Classes from '~/pages/Student/StudentClasses';
+
 // ============================
 // CÁC TRANG CÔNG KHAI (Ai cũng truy cập được)
 // ============================
 const publicRoutes = [
-  { path: '/', component: Login, layout: null },
-  { path: '/login', component: Login, layout: null },
-  { path: '/register', component: Logup, layout: null },
-  { path: '/admin', component: Admin, layout: HeaderOnly },
-  { path: '/user', component: User, layout: HeaderOnly },
-  { path: '/groups', component: Groups, layout: HeaderOnly },
-  { path: '/class', component: MyClass, layout: HeaderOnly },
-
-  // Student routes
-  { path: '/student', component: ManagementStudent, layout: DefaultLayout },
-  { path: '/student/add', component: AddStudentForm, layout: null },
-  { path: '/student/space', component: StudentSpace, layout: HeaderAndNavbar },
-  { path: '/student/space/user', component: StudentUser, layout: HeaderAndNavbar },
-//   { path: '/student/space/classes', component: Classes, layout: HeaderAndNavbar },
-  { path: '/student/space/classes/:id', component: StudentClassItem, layout: HeaderAndNavbar },
-  { path: '/student/space/people/calendar', component: FullCalendarItem, layout: HeaderAndNavbar },
+    { path: '/', component: Login, layout: null },
+    { path: '/login', component: Login, layout: null },
+    { path: '/register', component: Logup, layout: null },
+    { path: '/admin', component: Admin, layout: HeaderOnly },
+    { path: '/student', component: Student, layout: HeaderAndNavbar },
+    { path: '/student/space', component: StudentSpace, layout: HeaderAndNavbar },
+    { path: '/student/space/user', component: StudentUser, layout: HeaderAndNavbar },
+    { path: '/student/space/classes', component: Classes, layout: HeaderAndNavbar },
+    { path: '/student/space/classes/:id', component: StudentClassItem, layout: HeaderAndNavbar },
+    { path: '/student/space/people/calendar', component: FullCalendarItem, layout: HeaderAndNavbar },
+    { path: '/student/space/marketplace', component: StudentMarketplace, layout: HeaderAndNavbar },
+    { path: '/student/space/course/:id', component: StudentCourseItem, layout: HeaderAndNavbar },
+    { path: '/student/space/checkout', component: StudentCheckout, layout: HeaderAndNavbar },
 ];
 
 // ============================
@@ -46,10 +49,9 @@ const publicRoutes = [
 // ============================
 const privateRoutes = [
     {
-        path: '/',
+        path: '/home',
         component: Home,
         layout: DefaultLayout,
-        roles: ['Student'], // Student mới vào được HomePage
     },
     {
         path: '/admin',
@@ -66,3 +68,4 @@ const privateRoutes = [
 ];
 
 export { publicRoutes, privateRoutes };
+

@@ -29,7 +29,7 @@ function FullCalendarItem() {
                     // dateClick={(info) => alert('Bạn đã click vào: ' + info.dateStr)}
                     events={[
                         { title: 'Báo cáo dự án', date: '2025-10-25' },
-                        { title: 'Làm bài tập React', date: '2025-10-27' },
+                        { title: 'Làm bài tập về nhà', date: '2025-10-27' },
                     ]}
                 />
             </div>
