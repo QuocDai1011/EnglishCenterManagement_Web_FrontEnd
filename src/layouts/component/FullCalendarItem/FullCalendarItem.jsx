@@ -28,8 +28,12 @@ function FullCalendarItem() {
                     }}
                     // dateClick={(info) => alert('Bạn đã click vào: ' + info.dateStr)}
                     events={[
-                        { title: 'Báo cáo dự án', date: '2025-10-25' },
-                        { title: 'Làm bài tập về nhà', date: '2025-10-27' },
+                        { title: 'Làm bài tập listening', date: '2025-11-25' },
+                        { title: 'Làm bài tập speaking', date: '2025-11-27' },
+                        { title: 'Làm bài tập reading', date: '2025-11-19' },
+                        { title: 'Làm bài tập về nhà', date: '2025-11-29' },
+                        { title: 'Làm bài tập writing', date: '2025-11-25' },
+
                     ]}
                 />
             </div>

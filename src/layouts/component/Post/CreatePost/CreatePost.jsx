@@ -67,6 +67,8 @@ function CreatePost() {
                 </div>
             </div>
         </div>
+
+        
     );
 }
 

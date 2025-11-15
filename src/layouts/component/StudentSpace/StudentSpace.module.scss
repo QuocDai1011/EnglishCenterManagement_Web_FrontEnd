@@ -14,3 +14,138 @@
         width: 18%;
     }
 }
+
+
+//
+.StudentSpace__rightBar {
+    width: 20%;
+
+    .StudentSpace__rightBarInner {
+        height: 100%;
+
+        .StudentSpace__scrollBar {
+            position: fixed;
+            right: 20px;
+            height: calc(100vh - 70px);
+            overflow-y: auto; 
+            overflow-x: hidden;
+            margin-right: 5px;
+            top: 70px;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: transparent; // Trong suốt mặc định
+                border-radius: 4px;
+            }
+            
+            &:hover::-webkit-scrollbar-thumb {
+                background: #bcc0c4;
+            }
+            
+            &::-webkit-scrollbar-thumb:hover {
+                background: #8a8d91;
+            }
+            
+            scrollbar-width: thin;
+            scrollbar-color: transparent transparent;
+            
+            &:hover {
+                scrollbar-color: #bcc0c4 transparent;
+                z-index: 999;
+            }
+
+            .StudentSpace__birthdayToday {
+                border-radius: 10px;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                background-color: #fff;
+
+                p {
+                    color: #000000DE;
+                    padding: 10px 0px 0px 10px;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+                img {
+                    width: 100%;
+                }
+
+                .StudentSpace__label {
+                    color: #000000DE;
+                    margin: 10px 0px 0px 10px;
+                    font-weight: 400;
+                    font-size: 1.6rem;
+                    line-height: 1.5;
+                    letter-spacing: 0.00938em;
+                }
+            }
+
+            .StudentSpace__upcomingBirthday {
+                padding: 5px;
+                margin-top: 5px;
+                border-radius: 10px;
+                background-color: #fff;
+
+                p {
+                    color: #000000DE;
+                    margin: 8px 8px 0px;
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+
+                .StudentSpace__label {
+                    padding: 5px;
+                    font-weight: 400;
+                    font-size: 1.6rem;
+                    line-height: 1.5;
+                    letter-spacing: 0.00938em;
+                }
+            }
+
+            .StudentSpace__socialMedia {
+                border-radius: 10px;
+                background-color: #fff;
+
+                p {
+                    color: #000000DE;
+                    margin: 16px 13px 0px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding-top: 10px;
+                }
+
+                .StudentSpace__socialMediaBody {
+                    display: flex;
+                    padding: 10px 0;
+                    overflow: auto;
+                    margin-right: 10px;
+                }
+            }
+
+            .StudentSpace__events {
+                border-radius: 10px;
+                background-color: #fff;
+
+                p {
+                    color: #000000DE;
+                    margin: 16px 13px 0px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    padding-top: 10px;
+                }
+
+                .StudentSpace__eventsBody {
+                    padding-bottom: 10px;
+                }
+            }
+        }
+    }
+}

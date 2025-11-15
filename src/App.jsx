@@ -4,6 +4,7 @@ import { Toaster } from 'sonner';
 
 import { AuthProvider } from './context/authContext';
 import { AuthGuard } from './context/AuthGuard';
+import NotFoundOrRedirect from './components/NotFoundOrRedirect';
 
 import { publicRoutes, privateRoutes } from './routes';
 
@@ -16,6 +17,7 @@ function App() {
                 <div className="App">
                     <AuthProvider>
                         <Routes>
+                            <Route path="*" element={<NotFoundOrRedirect />} />
                             <Route path="/" element={<Navigate to="/login" replace />} />
                             {/* PUBLIC ROUTES */}
                             {publicRoutes.map((route, index) => {
