@@ -23,29 +23,6 @@ function App() {
                     <AuthProvider>
                         <Routes>
                             {/* ============================
-                                PUBLIC ROUTES
-                            ============================ */}
-                            {publicRoutes.map((route, index) => {
-                                const Page = route.component;
-                                let Layout = DefaultLayout;
-
-                                if (route.layout) Layout = route.layout;
-                                else if (route.layout === null) Layout = Fragment;
-
-                                return (
-                                    <Route
-                                        key={index}
-                                        path={route.path}
-                                        element={
-                                            <Layout>
-                                                <Page />
-                                            </Layout>
-                                        }
-                                    />
-                                );
-                            })}
-
-                            {/* ============================
                                 AUTH ROUTES
                             ============================ */}
                             <Route path="/login" element={<SignInForm />} />
@@ -63,7 +40,7 @@ function App() {
 
                             {/* TEACHER */}
                             <Route
-                                path="/teacher"
+                                path="/teacher" 
                                 element={
                                     <AuthGuard roles={['Teacher']}>
                                         <Admin />
