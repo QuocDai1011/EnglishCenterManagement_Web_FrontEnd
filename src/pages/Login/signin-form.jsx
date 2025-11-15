@@ -57,8 +57,10 @@ const SignInForm = () => {
     // Add effect to handle navigation when user state changes
     useEffect(() => {
         if (user && !isLoading) {
-            const redirectPath = user.role === 'Admin' ? '/admin' : user.role === 'Teacher' ? '/teacher' : '/'; // còn lại là Student
+            const redirectPath =
+                user.role === 'Admin' ? '/admin' : user.role === 'Teacher' ? '/teacher' : '/student/space'; // còn lại là Student
             navigate(redirectPath, { replace: true });
+            console.log(redirectPath);
         }
     }, [user, isLoading, navigate]);
 

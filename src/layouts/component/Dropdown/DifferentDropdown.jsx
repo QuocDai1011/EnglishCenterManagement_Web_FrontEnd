@@ -2,7 +2,9 @@ import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { FaCaretDown } from 'react-icons/fa6';
 import styles from './Dropdown.module.scss';
-import { FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt } from 'react-icons/fa';
+import { useAuth } from '~/context/authContext';
+import { useNavigate } from 'react-router-dom';
 function DifferentDropdown({ label = 'More', links = [] }) {
     const [openSub, setOpenSub] = useState(null);
     const [selectedSubItems, setSelectedSubItems] = useState(() => {
@@ -33,6 +35,28 @@ function DifferentDropdown({ label = 'More', links = [] }) {
             [parentIdx]: sub,
         }));
         setOpenSub(null);
+    };
+
+    const { user, logout } = useAuth();
+    // 2. Lấy hook navigate để có thể chuyển hướng thủ công nếu cần
+    const navigate = useNavigate();
+
+    // 3. Định nghĩa hàm xử lý đăng xuất
+    const handleLogout = async () => {
+        try {
+            // Hàm logout sẽ gửi yêu cầu API đến endpoint /api/Auth/logout
+            // và xóa thông tin người dùng khỏi state/cookie.
+            await logout();
+
+            // Thông báo đã được hiển thị trong useAuth.
+            console.log('Đã đăng xuất thành công.');
+
+            // Tùy chọn: Chuyển hướng về trang đăng nhập ngay lập tức.
+            navigate('/login');
+        } catch (error) {
+            console.error('Đăng xuất thất bại:', error);
+            // useAuth() đã hiển thị thông báo lỗi (toast)
+        }
     };
 
     return (
@@ -157,7 +181,10 @@ function DifferentDropdown({ label = 'More', links = [] }) {
 
                     <hr />
 
-                    <button className={styles.DifferentDropdown__item + ' ' + styles.DifferentDropdown__logout}>
+                    <button
+                        onClick={handleLogout}
+                        className={styles.DifferentDropdown__item + ' ' + styles.DifferentDropdown__logout}
+                    >
                         <div className={styles.DifferentDropdown__iconItem}>
                             <FaSignOutAlt className={styles.DifferentDropdown__iconLink} />
                         </div>

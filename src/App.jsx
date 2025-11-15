@@ -5,13 +5,7 @@ import { Toaster } from 'sonner';
 import { AuthProvider } from './context/authContext';
 import { AuthGuard } from './context/AuthGuard';
 
-import { DefaultLayout } from './layouts';
-import { publicRoutes } from './routes';
-
-import SignInForm from './pages/Login/signin-form';
-import SignUpForm from './pages/Logup/signup-form';
-import HomePage from './pages/Home/HomePage';
-import Admin from './pages/RoleAdmin/Admin';
+import { publicRoutes, privateRoutes } from './routes';
 
 function App() {
     return (
@@ -22,41 +16,43 @@ function App() {
                 <div className="App">
                     <AuthProvider>
                         <Routes>
-                            {/* ============================
-                                AUTH ROUTES
-                            ============================ */}
-                            <Route path="/login" element={<SignInForm />} />
-                            <Route path="/register" element={<SignUpForm />} />
+                            {/* PUBLIC ROUTES */}
+                            {publicRoutes.map((route, index) => {
+                                const Page = route.component;
+                                const Layout = route.layout ?? Fragment;
 
-                            {/* ADMIN */}
-                            <Route
-                                path="/admin"
-                                element={
-                                    <AuthGuard roles={['Admin']}>
-                                        <Admin />
-                                    </AuthGuard>
-                                }
-                            />
+                                return (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={
+                                            <Layout>
+                                                <Page />
+                                            </Layout>
+                                        }
+                                    />
+                                );
+                            })}
 
-                            {/* TEACHER */}
-                            <Route
-                                path="/teacher"
-                                element={
-                                    <AuthGuard roles={['Teacher']}>
-                                        <Admin />
-                                    </AuthGuard>
-                                }
-                            />
+                            {/* PRIVATE ROUTES */}
+                            {privateRoutes.map((route, index) => {
+                                const Page = route.component;
+                                const Layout = route.layout ?? Fragment;
 
-                            {/* STUDENT (Default Home) */}
-                            <Route
-                                path="/"
-                                element={
-                                    <AuthGuard roles={['Student']}>
-                                        <HomePage />
-                                    </AuthGuard>
-                                }
-                            />
+                                return (
+                                    <Route
+                                        key={index}
+                                        path={route.path}
+                                        element={
+                                            <AuthGuard roles={route.roles}>
+                                                <Layout>
+                                                    <Page />
+                                                </Layout>
+                                            </AuthGuard>
+                                        }
+                                    />
+                                );
+                            })}
                         </Routes>
                     </AuthProvider>
                 </div>

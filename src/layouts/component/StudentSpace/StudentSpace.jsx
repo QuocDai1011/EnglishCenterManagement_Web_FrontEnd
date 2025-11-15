@@ -1,6 +1,7 @@
 import CreateBlog from '../CreateBlog';
 import StudentChatBot from '../StudentChatBot';
 import styles from './StudentSpace.module.scss';
+
 function StudentSpace() {
     return (
         <div className={styles.StudentSpace}>
