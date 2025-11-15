@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Fragment } from 'react';
 import { Toaster } from 'sonner';
 
@@ -16,6 +16,7 @@ function App() {
                 <div className="App">
                     <AuthProvider>
                         <Routes>
+                            <Route path="/" element={<Navigate to="/login" replace />} />
                             {/* PUBLIC ROUTES */}
                             {publicRoutes.map((route, index) => {
                                 const Page = route.component;
