@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import StudentService from '~/api/StudentService';
 import { Link } from 'react-router-dom';
 
-// Reusable Input Component
+// Reusable Input Component with Error
 const InputField = ({
     label,
     required,
@@ -14,6 +14,7 @@ const InputField = ({
     placeholder,
     disabled = false,
     className = '',
+    error = '',
 }) => (
     <div>
         <label className="block text-2xl mb-2">
@@ -25,15 +26,27 @@ const InputField = ({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={disabled}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                disabled ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : ''
-            } ${className}`}
+            className={`w-full px-3 py-2 border ${
+                error ? 'border-red-500' : 'border-gray-300'
+            } rounded-lg focus:outline-none focus:ring-2 ${
+                error ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+            } ${disabled ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : ''} ${className}`}
         />
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
 );
 
-// Reusable Select Component
-const SelectField = ({ label, required, value, onChange, options, disabled = false, placeholder = '-- Chọn --' }) => (
+// Reusable Select Component with Error
+const SelectField = ({ 
+    label, 
+    required, 
+    value, 
+    onChange, 
+    options, 
+    disabled = false, 
+    placeholder = '-- Chọn --',
+    error = ''
+}) => (
     <div>
         <label className="block text-2xl mb-2">
             {label} {required && <span className="text-red-600">*</span>}
@@ -42,9 +55,11 @@ const SelectField = ({ label, required, value, onChange, options, disabled = fal
             value={value}
             onChange={(e) => onChange(e.target.value)}
             disabled={disabled}
-            className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                disabled ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : ''
-            }`}
+            className={`w-full px-3 py-2 border ${
+                error ? 'border-red-500' : 'border-gray-300'
+            } rounded-lg focus:outline-none focus:ring-2 ${
+                error ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+            } ${disabled ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : ''}`}
         >
             <option value="">{placeholder}</option>
             {options.map((opt) => (
@@ -53,6 +68,7 @@ const SelectField = ({ label, required, value, onChange, options, disabled = fal
                 </option>
             ))}
         </select>
+        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
 );
 
@@ -61,6 +77,8 @@ export default function AddStudentForm() {
     const [cities, setCities] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
+    const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -80,10 +98,118 @@ export default function AddStudentForm() {
         joinDate: new Date().toISOString().split('T')[0],
     });
 
+    // Validation Rules
+    const validateField = (fieldName, value) => {
+        let error = '';
+
+        switch (fieldName) {
+            case 'fullName':
+                if (!value || value.trim() === '') {
+                    error = 'Họ và tên không được để trống';
+                } else if (value.trim().length < 2) {
+                    error = 'Họ và tên phải có ít nhất 2 ký tự';
+                } else if (!/^[a-zA-ZÀ-ỹ\s]+$/.test(value)) {
+                    error = 'Họ và tên chỉ được chứa chữ cái';
+                }
+                break;
+
+            case 'email':
+                if (!value || value.trim() === '') {
+                    error = 'Email không được để trống';
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    error = 'Email không hợp lệ';
+                }
+                break;
+
+            case 'phone':
+                if (!value || value.trim() === '') {
+                    error = 'Số điện thoại không được để trống';
+                } else if (!/^(0|\+84)[0-9]{9}$/.test(value.replace(/\s/g, ''))) {
+                    error = 'Số điện thoại không hợp lệ (VD: 0912345678)';
+                }
+                break;
+
+            case 'username':
+                if (!value || value.trim() === '') {
+                    error = 'Tài khoản không được để trống';
+                } else if (value.length < 4) {
+                    error = 'Tài khoản phải có ít nhất 4 ký tự';
+                } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
+                    error = 'Tài khoản chỉ được chứa chữ, số và dấu gạch dưới';
+                }
+                break;
+
+            case 'password':
+                if (!value || value.trim() === '') {
+                    error = 'Mật khẩu không được để trống';
+                } else if (value.length < 6) {
+                    error = 'Mật khẩu phải có ít nhất 6 ký tự';
+                }
+                break;
+
+            case 'parentPhone':
+                if (value && !/^(0|\+84)[0-9]{9}$/.test(value.replace(/\s/g, ''))) {
+                    error = 'Số điện thoại phụ huynh không hợp lệ';
+                }
+                break;
+
+            case 'birthDate':
+                if (value) {
+                    const birthDate = new Date(value);
+                    const today = new Date();
+                    const age = today.getFullYear() - birthDate.getFullYear();
+                    
+                    if (birthDate > today) {
+                        error = 'Ngày sinh không được là ngày trong tương lai';
+                    } else if (age > 100) {
+                        error = 'Ngày sinh không hợp lệ';
+                    }
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        return error;
+    };
+
+    // Validate all fields in current step
+    const validateStep = (stepNumber) => {
+        const newErrors = {};
+        
+        if (stepNumber === 1) {
+            // Step 1 required fields
+            const step1Fields = ['fullName', 'email', 'phone', 'username', 'password'];
+            
+            step1Fields.forEach(field => {
+                const error = validateField(field, formData[field]);
+                if (error) {
+                    newErrors[field] = error;
+                }
+            });
+        }
+        
+        if (stepNumber === 2) {
+            // Step 2 validation (optional fields but validate if filled)
+            if (formData.parentPhone) {
+                const error = validateField('parentPhone', formData.parentPhone);
+                if (error) newErrors.parentPhone = error;
+            }
+            
+            if (formData.birthDate) {
+                const error = validateField('birthDate', formData.birthDate);
+                if (error) newErrors.birthDate = error;
+            }
+        }
+
+        return newErrors;
+    };
+
     // Fetch functions
     const fetchCities = async () => {
         try {
-            const res = await fetch('https://provinces.open-api.vn/api/v1');
+            const res = await fetch('https://provinces.open-api.vn/api/p/');
             if (!res.ok) throw new Error('Error fetching cities');
             const data = await res.json();
             setCities(data);
@@ -124,7 +250,7 @@ export default function AddStudentForm() {
         return item ? item.name : '';
     };
 
-    // Handle input changes with address logic
+    // Handle input changes with validation
     const handleInputChange = (field, value) => {
         setFormData((prev) => {
             const updated = { ...prev, [field]: value };
@@ -151,16 +277,50 @@ export default function AddStudentForm() {
 
             return updated;
         });
+
+        // Clear error for this field when user starts typing
+        if (errors[field]) {
+            setErrors(prev => {
+                const newErrors = { ...prev };
+                delete newErrors[field];
+                return newErrors;
+            });
+        }
+
+        // Mark field as touched
+        setTouched(prev => ({ ...prev, [field]: true }));
+
+        // Validate field on change (real-time validation)
+        const error = validateField(field, value);
+        if (error && touched[field]) {
+            setErrors(prev => ({ ...prev, [field]: error }));
+        }
     };
 
     const generatePassword = () => {
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
         const password = Array.from({ length: 12 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
         handleInputChange('password', password);
     };
 
     const handleNext = () => {
-        if (step < 2) setStep(step + 1);
+        // Validate current step
+        const stepErrors = validateStep(1);
+        
+        if (Object.keys(stepErrors).length > 0) {
+            setErrors(stepErrors);
+            
+            // Show error message
+            Swal.fire({
+                icon: 'warning',
+                title: 'Thông tin chưa đầy đủ',
+                text: 'Vui lòng kiểm tra và điền đầy đủ thông tin bắt buộc!',
+            });
+            
+            return;
+        }
+
+        setStep(2);
     };
 
     const handlePrev = () => {
@@ -168,6 +328,27 @@ export default function AddStudentForm() {
     };
 
     const handleSubmit = async () => {
+        // Validate all steps
+        const step1Errors = validateStep(1);
+        const step2Errors = validateStep(2);
+        const allErrors = { ...step1Errors, ...step2Errors };
+
+        if (Object.keys(allErrors).length > 0) {
+            setErrors(allErrors);
+            
+            Swal.fire({
+                icon: 'warning',
+                title: 'Thông tin chưa hợp lệ',
+                html: `
+                    <div style="text-align: left;">
+                        ${Object.values(allErrors).map(err => `<p>• ${err}</p>`).join('')}
+                    </div>
+                `,
+            });
+            
+            return;
+        }
+
         try {
             const payload = {
                 studentId: 0,
@@ -187,12 +368,22 @@ export default function AddStudentForm() {
 
             const res = await StudentService.create(payload);
             if (res) {
-                await Swal.fire('Thêm học viên', 'Thêm học viên thành công!', 'success');
-                // Reset form hoặc redirect nếu cần
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công!',
+                    text: 'Thêm học viên thành công!',
+                });
+                
+                // Reset form
+                window.location.reload();
             }
         } catch (e) {
             console.error('Error exception:', e);
-            Swal.fire('Thêm học viên', 'Đã có lỗi xảy ra! Vui lòng thử lại', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Đã có lỗi xảy ra! Vui lòng thử lại',
+            });
         }
     };
 
@@ -200,16 +391,16 @@ export default function AddStudentForm() {
         <div className="min-h-screen bg-gray-50 p-4">
             <div className="max-w-7xl mx-auto bg-white rounded-lg shadow-sm">
                 {/* Header */}
-                <div className="flex items-center justify-between p-4">
+                <div className="flex items-center justify-between p-4 border-b">
                     <Link to="/admin">
-                        <button className="p-2 hover:bg-gray-100 rounded-lg">
-                        <X size={20} />
-                    </button>
+                        <button className="p-2 hover:bg-gray-100 rounded-lg transition">
+                            <X size={20} />
+                        </button>
                     </Link>
                     <h1 className="text-3xl font-semibold">Thêm học viên</h1>
                     <button 
                         onClick={handleSubmit}
-                        className="px-6 py-2 bg-blue-600 text-white text-xl rounded-lg hover:bg-blue-700"
+                        className="px-6 py-2 bg-blue-600 text-white text-xl rounded-lg hover:bg-blue-700 transition"
                     >
                         Lưu
                     </button>
@@ -220,7 +411,7 @@ export default function AddStudentForm() {
                     <div className="flex items-center justify-center max-w-3xl mx-auto">
                         <div className="flex items-center">
                             <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                                     step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-300'
                                 }`}
                             >
@@ -228,10 +419,10 @@ export default function AddStudentForm() {
                             </div>
                             <div className="ml-2 text-2xl font-medium">Thông tin</div>
                         </div>
-                        <div className={`flex-1 h-0.5 mx-4 ${step >= 2 ? 'bg-blue-600' : 'bg-gray-300'}`} />
+                        <div className={`flex-1 h-0.5 mx-4 transition ${step >= 2 ? 'bg-blue-600' : 'bg-gray-300'}`} />
                         <div className="flex items-center">
                             <div
-                                className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                                className={`w-8 h-8 rounded-full flex items-center justify-center transition ${
                                     step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-300'
                                 }`}
                             >
@@ -256,7 +447,8 @@ export default function AddStudentForm() {
                                         required
                                         value={formData.fullName}
                                         onChange={(val) => handleInputChange('fullName', val)}
-                                        placeholder="Họ và tên"
+                                        placeholder="Nguyễn Văn A"
+                                        error={errors.fullName}
                                     />
 
                                     <InputField
@@ -273,6 +465,7 @@ export default function AddStudentForm() {
                                         value={formData.email}
                                         onChange={(val) => handleInputChange('email', val)}
                                         placeholder="example@gmail.com"
+                                        error={errors.email}
                                     />
 
                                     <InputField
@@ -281,7 +474,8 @@ export default function AddStudentForm() {
                                         type="tel"
                                         value={formData.phone}
                                         onChange={(val) => handleInputChange('phone', val)}
-                                        placeholder="Số điện thoại"
+                                        placeholder="0912345678"
+                                        error={errors.phone}
                                     />
 
                                     <InputField
@@ -290,6 +484,7 @@ export default function AddStudentForm() {
                                         value={formData.username}
                                         onChange={(val) => handleInputChange('username', val)}
                                         placeholder="trungle05"
+                                        error={errors.username}
                                     />
 
                                     <div>
@@ -299,19 +494,26 @@ export default function AddStudentForm() {
                                         <div className="flex gap-2">
                                             <input
                                                 type="text"
-                                                placeholder="Mật khẩu"
+                                                placeholder="Tối thiểu 6 ký tự"
                                                 value={formData.password}
                                                 onChange={(e) => handleInputChange('password', e.target.value)}
-                                                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                                className={`flex-1 px-3 py-2 border ${
+                                                    errors.password ? 'border-red-500' : 'border-gray-300'
+                                                } rounded-lg focus:outline-none focus:ring-2 ${
+                                                    errors.password ? 'focus:ring-red-500' : 'focus:ring-blue-500'
+                                                }`}
                                             />
                                             <button
                                                 onClick={generatePassword}
-                                                className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                                className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
                                                 title="Tạo mật khẩu ngẫu nhiên"
                                             >
                                                 <RefreshCw size={20} className="text-gray-600" />
                                             </button>
                                         </div>
+                                        {errors.password && (
+                                            <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +522,7 @@ export default function AddStudentForm() {
                             <div className="flex justify-end gap-3 pt-6">
                                 <button
                                     onClick={handleNext}
-                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                                 >
                                     Tiếp theo
                                 </button>
@@ -340,6 +542,7 @@ export default function AddStudentForm() {
                                         type="date"
                                         value={formData.birthDate}
                                         onChange={(val) => handleInputChange('birthDate', val)}
+                                        error={errors.birthDate}
                                     />
 
                                     <SelectField
@@ -364,7 +567,8 @@ export default function AddStudentForm() {
                                         type="tel"
                                         value={formData.parentPhone}
                                         onChange={(val) => handleInputChange('parentPhone', val)}
-                                        placeholder="097xxxxxxx"
+                                        placeholder="0912345678"
+                                        error={errors.parentPhone}
                                     />
 
                                     {/* Address Selection */}
@@ -401,22 +605,24 @@ export default function AddStudentForm() {
                                         onChange={(val) => handleInputChange('joinDate', val)}
                                     />
                                 </div>
+
+                                {/* Display full address */}
+                                {formData.address && (
+                                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+                                        <p className="text-sm text-gray-600">Địa chỉ đầy đủ:</p>
+                                        <p className="font-medium text-blue-900">{formData.address}</p>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Navigation Buttons */}
                             <div className="flex justify-between pt-6">
                                 <button
                                     onClick={handlePrev}
-                                    className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                                    className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
                                 >
                                     Quay lại
                                 </button>
-                                {/* <button
-                                    onClick={handleSubmit}
-                                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-                                >
-                                    Lưu
-                                </button> */}
                             </div>
                         </>
                     )}

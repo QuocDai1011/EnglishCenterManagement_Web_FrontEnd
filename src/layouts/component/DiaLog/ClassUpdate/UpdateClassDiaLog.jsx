@@ -233,7 +233,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-colors"
+            className="text-white hover:bg-blue-400  hover:bg-opacity-20 rounded-full p-1 transition-colors"
             disabled={loading}
           >
             <X size={24} />
@@ -246,7 +246,7 @@ const UpdateClassDiaLog = ({ open, onClose, classData, onSave }) => {
             {/* Error message */}
             {errors.submit && (
               <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-                <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+                <AlertCircle className="text-red-500 shrink-0 mt-0.5" size={20} />
                 <p className="text-red-700">{errors.submit}</p>
               </div>
             )}

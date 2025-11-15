@@ -48,7 +48,7 @@ const ClassDetailDialog = ({ open, onClose, classData }) => {
           </div>
           <button
             onClick={onClose}
-            className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-colors"
+            className="text-white hover:bg-blue-400  hover:bg-opacity-20 rounded-full p-1 transition-colors"
           >
             <X size={24} />
           </button>

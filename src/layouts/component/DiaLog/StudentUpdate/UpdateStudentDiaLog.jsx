@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 const InputField = ({
     icon: Icon,
     label,
-    field,
     type = 'text',
     required = false,
     isReadOnly,
@@ -283,32 +282,6 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
         }
     };
 
-    const hcmDistricts = [
-        { value: '', label: 'Chọn quận/huyện' },
-        { value: 'Thành phố Thủ Đức', label: 'Thành phố Thủ Đức' },
-        { value: 'Quận 1', label: 'Quận 1' },
-        { value: 'Quận 3', label: 'Quận 3' },
-        { value: 'Quận 4', label: 'Quận 4' },
-        { value: 'Quận 5', label: 'Quận 5' },
-        { value: 'Quận 6', label: 'Quận 6' },
-        { value: 'Quận 7', label: 'Quận 7' },
-        { value: 'Quận 8', label: 'Quận 8' },
-        { value: 'Quận 10', label: 'Quận 10' },
-        { value: 'Quận 11', label: 'Quận 11' },
-        { value: 'Quận 12', label: 'Quận 12' },
-        { value: 'Quận Bình Tân', label: 'Quận Bình Tân' },
-        { value: 'Quận Bình Thạnh', label: 'Quận Bình Thạnh' },
-        { value: 'Quận Gò Vấp', label: 'Quận Gò Vấp' },
-        { value: 'Quận Phú Nhuận', label: 'Quận Phú Nhuận' },
-        { value: 'Quận Tân Bình', label: 'Quận Tân Bình' },
-        { value: 'Quận Tân Phú', label: 'Quận Tân Phú' },
-        { value: 'Huyện Bình Chánh', label: 'Huyện Bình Chánh' },
-        { value: 'Huyện Cần Giờ', label: 'Huyện Cần Giờ' },
-        { value: 'Huyện Củ Chi', label: 'Huyện Củ Chi' },
-        { value: 'Huyện Hóc Môn', label: 'Huyện Hóc Môn' },
-        { value: 'Huyện Nhà Bè', label: 'Huyện Nhà Bè' },
-    ];
-
     if (!open || !student) return null;
 
     return (
@@ -322,7 +295,7 @@ const UpdateStudentDiaLog = ({ open, onClose, student, onSave }) => {
                     </div>
                     <button
                         onClick={onClose}
-                        className="text-white hover:bg-white hover:bg-opacity-20 rounded-full p-1 transition-colors"
+                        className="text-white hover:bg-blue-400 hover:bg-opacity-20 rounded-full p-1 transition-colors"
                     >
                         <X size={24} />
                     </button>

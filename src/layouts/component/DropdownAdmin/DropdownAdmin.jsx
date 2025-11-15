@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import style from './DropdownAdmin.module.scss'
 import className from 'classnames/bind'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';

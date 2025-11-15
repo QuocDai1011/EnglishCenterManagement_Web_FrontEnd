@@ -22,7 +22,7 @@ import Swal from 'sweetalert2';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-function WorkSchedule({open, onClose, date}) {
+function WorkSchedule({open, onClose, date, onSubmit}) { // ⬅️ Thêm prop onSubmit
     const [formData, setFormData] = useState({
         branch: 'TRUNG TÂM NGOẠI NGỮ TRE XANH',
         type: 'None',
@@ -37,8 +37,35 @@ function WorkSchedule({open, onClose, date}) {
         createForOthers: false,
     });
 
-        
+    const [teachers, setTeachers] = useState([]);
 
+    useEffect(() => {
+        const fetchTeachers = async () => {
+            try {
+                const response = await TeacherService.getAll();
+
+                if (!response || response.length === 0) {
+                    Swal.fire("Cảnh báo", "Danh sách giảng viên rỗng", "error");
+                }
+
+                setTeachers(response || []);
+            } catch (e) {
+                Swal.fire("Cảnh báo", `Lỗi khi lấy danh sách giảng viên: ${e}`, "error");
+            }
+        };
+
+        fetchTeachers();
+    }, []);
+
+    // Cập nhật date khi prop date thay đổi
+    useEffect(() => {
+        if (date) {
+            setFormData(prev => ({
+                ...prev,
+                date: date
+            }));
+        }
+    }, [date]);
 
     const handleChange = (field) => (event) => {
         setFormData({
@@ -49,29 +76,68 @@ function WorkSchedule({open, onClose, date}) {
 
 
     const handleSubmit = () => {
-        alert("Submit thành công")
-    }
-
-    const [teachers, setTeachers] = useState([]);
-
-    useEffect(() => {
-    const fetchTeachers = async () => {
-        try {
-            const response = await TeacherService.getAll(); // ⬅️ phải await
-
-            if (!response || response.length === 0) {
-                Swal.fire("Cảnh báo", "Danh sách giảng viên rỗng", "error");
-            }
-
-            setTeachers(response || []);
-        } catch (e) {
-            Swal.fire("Cảnh bảo", `Lỗi khi lấy danh sách giảng viên: ${e}`, "error");
+        // Validate form
+        if (!formData.title) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cảnh báo',
+                text: 'Vui lòng nhập tiêu đề!'
+            });
+            onClose();
+            return;
         }
+
+        if (!formData.category) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cảnh báo',
+                text: 'Vui lòng chọn danh mục!'
+            });
+            onClose();
+            return;
+        }
+
+        if (!formData.date) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cảnh báo',
+                text: 'Vui lòng chọn ngày!'
+            });
+            onClose();
+            return;
+        }
+
+        // Kiểm tra giờ bắt đầu < giờ kết thúc
+        if (formData.startTime >= formData.endTime) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cảnh báo',
+                text: 'Giờ kết thúc phải sau giờ bắt đầu!'
+            });
+            onClose();
+            return;
+        }
+
+        // Gọi callback onSubmit để truyền data về component cha
+        if (onSubmit) {
+            onSubmit(formData);
+        }
+
+        // Reset form
+        setFormData({
+            branch: 'TRUNG TÂM NGOẠI NGỮ TRE XANH',
+            type: 'None',
+            category: '',
+            title: '',
+            object: '',
+            user: 'QL-0000001 - Quản Lý',
+            date: '',
+            startTime: '08:33',
+            endTime: '08:43',
+            description: '',
+            createForOthers: false,
+        });
     };
-
-    fetchTeachers();
-}, []);
-
 
     return (
         <Dialog fullWidth maxWidth='lg' open={open} onClose={onClose}>
@@ -140,7 +206,7 @@ function WorkSchedule({open, onClose, date}) {
                             sx={{fontSize: '16px', backgroundColor: 'white', px: 1, py: 0}}
                             >
                                 Kiểu lặp
-                                </InputLabel>
+                            </InputLabel>
                             <Select
                                 value={formData.type}
                                 label="Kiểu lặp"
@@ -152,9 +218,8 @@ function WorkSchedule({open, onClose, date}) {
                                 }}
                             >
                                 {['None','Daily','Weekly','Monthly'].map((item) => (
-                                    <MenuItem sx={{fontSize: '16px'}} value={item}>{item}</MenuItem>
+                                    <MenuItem key={item} sx={{fontSize: '16px'}} value={item}>{item}</MenuItem>
                                 ))}
-
                             </Select>
                         </FormControl>
                     </Grid>
@@ -178,9 +243,8 @@ function WorkSchedule({open, onClose, date}) {
                                 }}
                             >
                                 {['Email','Gặp mặt đối tác','Gọi điện', 'Hẹn gặp', 'Khác', 'Kỷ niệm', 'Training', 'Đi ăn'].map((item) => (
-                                    <MenuItem sx={{fontSize: '16px'}} value={item}>{item}</MenuItem>
+                                    <MenuItem key={item} sx={{fontSize: '16px'}} value={item}>{item}</MenuItem>
                                 ))}
-                                
                             </Select>
                         </FormControl>
                     </Grid>
@@ -191,10 +255,9 @@ function WorkSchedule({open, onClose, date}) {
                             fullWidth
                             size="medium"
                             label="Tiêu đề *"
-                             sx={{
+                            sx={{
                                 '& .MuiInputBase-input, & .MuiInputLabel-root':{fontSize: '16px'},
                                 '& .MuiInputLabel-root': {paddingRight: '5px', backgroundColor: 'white'},
-                                
                             }}
                             value={formData.title}
                             onChange={handleChange('title')}
@@ -221,7 +284,7 @@ function WorkSchedule({open, onClose, date}) {
                                 }}
                             >
                                 {teachers.map((item) => (
-                                    <MenuItem sx={{fontSize:'16px'}} value={item.adminId}>
+                                    <MenuItem key={item.adminId} sx={{fontSize:'16px'}} value={`Teacher - ${item.fullName}`}>
                                         Teacher - {item.fullName}
                                     </MenuItem>
                                 ))}
@@ -229,7 +292,6 @@ function WorkSchedule({open, onClose, date}) {
                         </FormControl>
                     </Grid>
 
-                    {/* Switch tạo lịch hẹn riêng cho từng người */}
                     {/* Người thực hiện */}
                     <Grid size={6}>
                         <FormControl fullWidth size="medium" sx={{
@@ -239,11 +301,11 @@ function WorkSchedule({open, onClose, date}) {
                             <Select
                                 value={formData.user}
                                 label="Người thực hiện"
-                                 sx={{
+                                sx={{
                                     '& .MuiSelect-icon':{
                                         fontSize: '2.5rem',
                                     }
-                                 }}
+                                }}
                                 onChange={handleChange('user')}
                                 renderValue={(value) => (
                                     <Box sx={{ display: 'flex', gap: 0.5, alignItems: 'center' }}>
@@ -264,7 +326,7 @@ function WorkSchedule({open, onClose, date}) {
                     </Grid>
 
                     {/* Ngày */}
-                    <Grid size={6}>
+                    <Grid size={4}>
                         <TextField
                             fullWidth
                             size="medium"
@@ -272,7 +334,7 @@ function WorkSchedule({open, onClose, date}) {
                             label="Ngày"
                             value={formData.date}
                             onChange={handleChange('date')}
-                            InputLabelProps={{  fontSize: '16px' }}
+                            InputLabelProps={{ shrink: true }}
                             sx={{
                                 '& .MuiInputBase-input, & .MuiInputLabel-root':{fontSize: '16px'},
                                 '& .MuiInputLabel-root': {paddingRight: '5px', backgroundColor: 'white'}
@@ -281,13 +343,13 @@ function WorkSchedule({open, onClose, date}) {
                     </Grid>
 
                     {/* Giờ bắt đầu */}
-                    <Grid size={6}>
+                    <Grid size={4}>
                         <TextField
                             fullWidth
                             size="medium"
                             type="time"
                             label="Giờ bắt đầu"
-                             sx={{
+                            sx={{
                                 '& .MuiInputBase-input, & .MuiInputLabel-root':{fontSize: '16px'},
                                 '& .MuiInputLabel-root': {paddingRight: '5px', backgroundColor: 'white'}
                             }}
@@ -298,13 +360,13 @@ function WorkSchedule({open, onClose, date}) {
                     </Grid>
 
                     {/* Giờ kết thúc */}
-                    <Grid size={6}>
+                    <Grid size={4}>
                         <TextField
                             fullWidth
                             size="medium"
                             type="time"
                             label="Giờ kết thúc"
-                             sx={{
+                            sx={{
                                 '& .MuiInputBase-input, & .MuiInputLabel-root':{fontSize: '16px'},
                                 '& .MuiInputLabel-root': {paddingRight: '5px', backgroundColor: 'white'}
                             }}
@@ -314,18 +376,19 @@ function WorkSchedule({open, onClose, date}) {
                         />
                     </Grid>
 
-                    {/* Mô tả (Rich text editor placeholder) */}
-                    <Grid size={6}>
-                        
+                    {/* Mô tả */}
+                    <Grid size={12}>
                         <CKEditor
-                    editor={ClassicEditor}
-                    data="<p>Nhập nội dung tại đây...</p>"
-                    onChange={(event, editor) => {
-                        const data = editor.getData();
-                        console.log("CKEditor data:", data);
-                    }}
-
-                />
+                            editor={ClassicEditor}
+                            data={formData.description || "<p>Nhập nội dung tại đây...</p>"}
+                            onChange={(event, editor) => {
+                                const data = editor.getData();
+                                setFormData(prev => ({
+                                    ...prev,
+                                    description: data
+                                }));
+                            }}
+                        />
                     </Grid>
                 </Grid>
             </DialogContent>

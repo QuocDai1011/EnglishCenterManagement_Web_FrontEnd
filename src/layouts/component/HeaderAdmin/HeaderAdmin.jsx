@@ -589,33 +589,12 @@ function Header() {
                                 </Link>
                             );
                         })}
-                        {/* <Link to="/admin" onClick={handleClick}>
-                        <button className={cx('action-btn')}>
-                            <span className={cx('wrap-icon')}>
-                                <ImHome size={26} />
-                            </span>
-                        </button>
-                        </Link>
-                        <button className={cx('action-btn')}>
-                            <span className={cx('wrap-icon')}>
-                                <FaUsers size={26} />
-                            </span>
-                        </button>
-                        <button className={cx('action-btn')}>
-                            <span className={cx('wrap-icon')}>
-                                <BiSolidCalendarStar size={26} />
-                            </span>
-                        </button>
-                        <button className={cx('action-btn')}>
-                            <span className={cx('wrap-icon')}>
-                                <FaTrophy size={26} />
-                            </span>
-                        </button> */}
                     </div>
 
                     <div className={cx('header-right')}>
                         {/* USER BUTTON */}
-                        <button className={cx('header-user')}>
+                        <Link to="/Admin/user">
+                            <button className={cx('header-user')}>
                             <span>
                                 <div className={cx('wrap-avatar')}>
                                     <img src="/images/logo2019_png_1.png" alt="avatar" />
@@ -623,6 +602,7 @@ function Header() {
                                 <p className={cx('name')}>Lý</p>
                             </span>
                         </button>
+                        </Link>
 
                         {/* CREATE DROPDOWN */}
                         <Dropdown
@@ -650,64 +630,8 @@ function Header() {
                             width="medium"
                         /> 
 
-
                         {/* Container cho Grid Dropdown và Quick Add */}
                         <div style={{ position: 'relative', display: 'inline-block' }}>
-                            {/* Quick Add Dropdown
-                            {showQuickAdd && isGridMenuOpen && (
-                                <div className={cx('quick-add-menu')}>
-                                    <div className={cx('scroll-bar')}>
-                                        {quickAddItems.map((item, index) => {
-                                            if (item.header) {
-                                                return (
-                                                    <div
-                                                        key={`header-${index}`}
-                                                        style={{
-                                                            borderBottom: index === 0 ? '1px solid #e4e6e9' : 'none',
-                                                        }}
-                                                    >
-                                                        {item.header}
-                                                    </div>
-                                                );
-                                            }
-
-                                            return (
-                                                <button
-                                                    className={cx('item-btn')}
-                                                    key={item.id || index}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        item.onClick?.();
-                                                        if(item.path){
-                                                            handleQuickAdd(item.path);
-                                                        }
-                                                    }}
-                                                    onMouseEnter={(e) =>
-                                                        (e.currentTarget.style.backgroundColor = '#f0f2f5')
-                                                    }
-                                                    onMouseLeave={(e) =>
-                                                        (e.currentTarget.style.backgroundColor = 'transparent')
-                                                    }
-                                                >
-                                                    {item.icon && (
-                                                        <div className={cx('icon')} style={{ flexShrink: 0 }}>
-                                                            {item.icon}
-                                                        </div>
-                                                    )}
-                                                    <div style={{ flex: 1 }}>
-                                                        {item.title && (
-                                                            <div style={{ fontWeight: 600, fontSize: '15px' }}>
-                                                                {item.title}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </button>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )} */}
-
                             {/* MENU DROPDOWN (Grid) */}
                             <Dropdown
                                 button={
@@ -721,7 +645,7 @@ function Header() {
                                 width="xlarge"
                                 position="bottom-end"
                                 onOpenChange={(open) => {
-                                    setIsGridMenuOpen(open);
+                                    // setIsGridMenuOpen(open);
                                     if (!open) {
                                         setShowQuickAdd(false); // Reset Quick Add khi Grid đóng
                                     }
