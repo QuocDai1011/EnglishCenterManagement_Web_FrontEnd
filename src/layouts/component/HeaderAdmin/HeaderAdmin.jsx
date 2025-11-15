@@ -42,12 +42,12 @@ const iconBtn = [
     {
         id: 1,
         icon: ImHome,
-        href: '/admin',
+        href: '/Admin',
     },
     {
         id: 2,
         icon: FaUsers,
-        href: '/groups',
+        href: '/Admin/groups',
     },
     {
         id: 3,
@@ -189,14 +189,14 @@ function Header() {
             id: 'add-user',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm học viên',
-            path: '/student/add'
+            path: '/Admin/student/add'
         },
         {divider: true},
         {
             id: 'add-HR',
             icon: <FiUserPlus size={26} style={{ color: '#828282' }} />,
             title: 'Thêm mới nhân sự',
-            path: '/HR/add'
+            path: '/Admin/HR/add'
         },
         {divider: true},
         {
@@ -442,7 +442,7 @@ function Header() {
             id: 'manager',
             icon: <img src="/images/logo2019_png_1.png" alt="logo" style={{ color: '#828282' }} />,
             title: 'Quản lý',
-            onClick: () => navigate('/user'),
+            onClick: () => navigate('/Admin/user'),
         },
         { divider: true },
 

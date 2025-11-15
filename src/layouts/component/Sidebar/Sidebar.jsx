@@ -10,43 +10,43 @@ function Sidebar() {
             id: 1,
             image: '/images/logo2019_png_1.png',
             label: 'Quản Lý',
-            link: '/user',
+            link: '/Admin/user',
         },
         {
             id: 2,
             image: '/images/speaker.png',
             label: 'Tường nhà trường',
-            link: '/groups',
+            link: '/Admin/groups',
         },
         {
             id: 3,
             image: '/images/marketplace.png',
             label: 'Marketplace',
-            link: '/marketplace',
+            link: '/Admin/marketplace',
         },
         {
             id: 4,
             image: '/images/group.png',
             label: 'Nhóm',
-            link: '/groups',
+            link: '/Admin/groups',
         },
         {
             id: 5,
             image: '/images/calendar-star.png',
             label: 'Sự kiện',
-            link: '/events',
+            link: '/Admin/events',
         },
         {
             id: 6,
             image: '/images/myClass.png',
             label: 'Lớp học của tôi',
-            link: '/class',
+            link: '/Admin/class',
         },
         {
             id: 7,
             image: '/images/group.png',
             label: 'Danh sách sinh viên',
-            link: '/student',
+            link: '/Admin/student',
         },
     ];
 
@@ -56,44 +56,44 @@ function Sidebar() {
             id: 1,
             image: '/images/myCalendar.png',
             label: 'Lịch cá nhân',
-            link: '/people/calendar',
+            link: '/Admin/people/calendar',
         },
         {
             id: 2,
             image: '/images/task.png',
             label: 'Nhiệm vụ cá nhân',
-            link: '/tasks',
+            link: '/Admin/tasks',
         },
         {
             id: 3,
             image: '/images/Receipt.png',
             label: 'Hóa đơn',
-            link: '/invoices',
+            link: '/Admin/invoices',
         },
         {
             id: 4,
             image: '/images/order.png',
             label: 'Đơn hàng',
-            link: '/orders',
+            link: '/Admin/orders',
         },
         {
             id: 5,
             image: '/images/takeOff.png',
             label: 'Xin nghỉ',
-            link: '/absenteeism',
+            link: '/Admin/absenteeism',
         },
         {
             id: 6,
             image: '/images/game.png',
             label: 'Game',
-            link: '/Game',
+            link: '/Admin/Game',
         },
 
         {
             id: 7,
             image: '/images/timeSheet.png',
             label: 'Bảng chấm công',
-            link: '/timesheets',
+            link: '/Admin/timesheets',
         }
     ]
     return (

@@ -32,9 +32,8 @@ const publicRoutes = [
     { path: '/', component: Login, layout: null },
     { path: '/login', component: Login, layout: null },
     { path: '/register', component: Logup, layout: null },
-
     // Admin routes
-    { path: '/Admin/', component: Admin, layout: HeaderOnly },
+    { path: '/Admin', component: Admin, layout: HeaderOnly },
     { path: '/Admin/user', component: User, layout: HeaderOnly },
     { path: '/Admin/groups', component: Groups, layout: HeaderOnly },
     { path: '/Admin/class', component: MyClass, layout: HeaderOnly },
@@ -43,6 +42,7 @@ const publicRoutes = [
     { path: '/Admin/student', component: ManagementStudent, layout: DefaultLayout },
     { path: '/Admin/student/add', component: AddStudentForm, layout: null },
 
+    // Student routes
     // Student routes - HÀ /student/....
     { path: '/student', component: ManagementStudent, layout: HeaderOnly },
     { path: '/student/add', component: AddStudentForm, layout: null },
@@ -50,8 +50,8 @@ const publicRoutes = [
     { path: '/student/space/user', component: StudentUser, layout: HeaderAndNavbar },
     { path: '/student/space/classes', component: Classes, layout: HeaderAndNavbar },
     { path: '/student/space/classes/:id', component: StudentClassItem, layout: HeaderAndNavbar },
-    { path: '/student/space/people/calendar', component: FullCalendarItem, layout: HeaderAndNavbar }, 
-    { path: '/student/space/marketplace', component: StudentMarketplace, layout: HeaderAndNavbar }, 
+    { path: '/student/space/people/calendar', component: FullCalendarItem, layout: HeaderAndNavbar },
+    { path: '/student/space/marketplace', component: StudentMarketplace, layout: HeaderAndNavbar },
     { path: '/student/space/checkout', component: StudentCheckout, layout: HeaderAndNavbar },
 ];
 
