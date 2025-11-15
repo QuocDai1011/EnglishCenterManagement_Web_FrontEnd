@@ -13,6 +13,20 @@ export function InputOTPDemo({ data, mode, onClose, onVerified }) {
     const [loading, setLoading] = useState(false);
     const firstInputRef = useRef(null);
     const navigate = useNavigate();
+    const ref = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                onClose?.(); // click ngoài thì gọi onClose để đóng modal
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
 
     const { sendOTP, verifyOTP, register } = useAuth();
 
@@ -64,7 +78,7 @@ export function InputOTPDemo({ data, mode, onClose, onVerified }) {
 
     return (
         <div className="fixed inset-0 z-[50] flex items-center justify-center bg-black/[0.4]">
-            <div className="min-h-[100vh] flex items-center justify-center">
+            <div ref={ref} className="min-h-[100vh] flex items-center justify-center">
                 <Card
                     ref={modalRef}
                     className="w-full max-w-[400px] shadow-[0_4px_6px_rgba(0,0,0,0.1)] border border-gray-200"

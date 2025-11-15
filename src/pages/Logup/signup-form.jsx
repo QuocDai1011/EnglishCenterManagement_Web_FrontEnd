@@ -22,10 +22,10 @@ const signUpSchema = z.object({
     ),
     address: z.string().min(1, 'Địa chỉ bắt buộc phải có'),
     date_of_birth: z.string().min(1, 'Ngày sinh bắt buộc phải có'),
-    phone_number: z.string().min(10, 'Số điện thoại phải có ít nhất 10 chữ số'),
-    phone_number_of_parents: z.string().min(10, 'Số điện thoại phụ huynh phải có ít nhất 10 chữ số'),
+    phone_number: z.string().min(10, 'Số điện thoại không hợp lệ'),
+    phone_number_of_parents: z.string().min(10, 'Số điện thoại không hợp lệ'),
     password: z.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự'),
-    confirmPassword: z.string().min(6, 'Mật khẩu xác nhận phải có ít nhất 6 ký tự'),
+    confirmPassword: z.string().min(6, 'Mật khẩu xác nhận không trùng'),
 });
 
 const SignUpForm = () => {
@@ -112,7 +112,7 @@ const SignUpForm = () => {
 
                 {/* Nội dung chính */}
                 <div className="relative flex flex-col justify-center items-center min-h-screen w-full">
-                    <div className="flex flex-col gap-[24px]">
+                    <div className="flex flex-col gap-[20px]">
                         <Card className="overflow-hidden p-0 border-border">
                             <CardContent className="grid p-0 md:grid-cols-2">
                                 <form
@@ -137,15 +137,13 @@ const SignUpForm = () => {
                                                 type="text"
                                                 id="lastname"
                                                 {...register('lastname')}
-                                                className={`w-full h-[30px] m-0 p-0 ${
+                                                className={`border h-[30px] m-0 p-0 ${
                                                     errors.lastname ? 'border-red-500' : ''
                                                 }`}
                                             />
-                                            {errors.lastname && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.lastname.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.lastname ? errors.lastname.message : ' '}
+                                            </p>
                                         </div>
 
                                         <div className="space-y-[8px]">
@@ -154,17 +152,15 @@ const SignUpForm = () => {
                                             </Label>
                                             <Input
                                                 type="text"
-                                                id="firstName"
+                                                id="firstname"
                                                 {...register('firstname')}
-                                                className={`w-full h-[30px] ${
+                                                className={`border h-[30px] ${
                                                     errors.firstname ? 'border-red-500' : ''
                                                 }`}
                                             />
-                                            {errors.firstname && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.firstname.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.firstname ? errors.firstname.message : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -179,13 +175,11 @@ const SignUpForm = () => {
                                                 id="email"
                                                 placeholder="Nhập địa chỉ email của bạn"
                                                 {...register('email')}
-                                                className={`w-full h-[30px] ${errors.email ? 'border-red-500' : ''}`}
+                                                className={`border h-[30px] ${errors.email ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.email && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.email.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.email ? errors.email.message : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -199,13 +193,11 @@ const SignUpForm = () => {
                                                 type="text"
                                                 id="address"
                                                 {...register('address')}
-                                                className={`w-full h-[30px] ${errors.address ? 'border-red-500' : ''}`}
+                                                className={`border h-[30px] ${errors.address ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.address && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.address.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.address ? errors.address.message : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -218,7 +210,7 @@ const SignUpForm = () => {
                                             <select
                                                 id="gender"
                                                 {...register('gender')}
-                                                className={`border rounded-md w-full h-[30px] ${
+                                                className={`border border rounded-md h-[30px] ${
                                                     errors.gender ? 'border-red-500' : ''
                                                 }`}
                                             >
@@ -226,11 +218,9 @@ const SignUpForm = () => {
                                                 <option value={true}>Nam</option>
                                                 <option value={false}>Nữ</option>
                                             </select>
-                                            {errors.gender && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.gender.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.gender ? errors.gender.message : ' '}
+                                            </p>
                                         </div>
 
                                         <div className="space-y-[8px]">
@@ -241,15 +231,13 @@ const SignUpForm = () => {
                                                 type="date"
                                                 id="date_of_birth"
                                                 {...register('date_of_birth')}
-                                                className={`w-full h-[30px] ${
+                                                className={`border h-[30px] ${
                                                     errors.date_of_birth ? 'border-red-500' : ''
                                                 }`}
                                             />
-                                            {errors.date_of_birth && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.date_of_birth.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.date_of_birth ? errors.date_of_birth.message : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -263,15 +251,13 @@ const SignUpForm = () => {
                                                 type="tel"
                                                 id="phone_number"
                                                 {...register('phone_number')}
-                                                className={`w-full h-[30px] ${
+                                                className={`border h-[30px] ${
                                                     errors.phone_number ? 'border-red-500' : ''
                                                 }`}
                                             />
-                                            {errors.phone_number && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.phone_number.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.phone_number ? errors.phone_number.message : ' '}
+                                            </p>
                                         </div>
 
                                         <div className="space-y-[8px]">
@@ -282,15 +268,15 @@ const SignUpForm = () => {
                                                 type="tel"
                                                 id="phone_number_of_parents"
                                                 {...register('phone_number_of_parents')}
-                                                className={`w-full h-[30px] ${
+                                                className={`border h-[30px] ${
                                                     errors.phone_number_of_parents ? 'border-red-500' : ''
                                                 }`}
                                             />
-                                            {errors.phone_number_of_parents && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.phone_number_of_parents.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.phone_number_of_parents
+                                                    ? errors.phone_number_of_parents.message
+                                                    : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
@@ -304,13 +290,11 @@ const SignUpForm = () => {
                                                 type="password"
                                                 id="password"
                                                 {...register('password')}
-                                                className={`w-full h-[30px] ${errors.password ? 'border-red-500' : ''}`}
+                                                className={`border h-[30px] ${errors.password ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.password && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.password.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.password ? errors.password.message : ' '}
+                                            </p>
                                         </div>
                                         <div className="space-y-[8px]">
                                             <Label htmlFor="password" className="block text-[14px]">
@@ -322,20 +306,18 @@ const SignUpForm = () => {
                                                 {...register('confirmPassword', {
                                                     required: 'Xác nhận mật khẩu bắt buộc',
                                                 })}
-                                                className={`w-full h-[30px] ${errors.password ? 'border-red-500' : ''}`}
+                                                className={`border h-[30px] ${errors.password ? 'border-red-500' : ''}`}
                                             />
-                                            {errors.password && (
-                                                <p className="text-[14px] text-red-500 mt-[4px]">
-                                                    {errors.password.message}
-                                                </p>
-                                            )}
+                                            <p className="text-[14px] text-red-500 mt-[4px] min-h-[18px]">
+                                                {errors.confirmPassword ? errors.confirmPassword.message : ' '}
+                                            </p>
                                         </div>
                                     </div>
 
                                     {/* Button */}
                                     <Button
                                         type="submit"
-                                        className="w-full h-[30px] text-2xl mb-[10px] cursor-pointer"
+                                        className="h-[30px] text-2xl mb-[10px] cursor-pointer"
                                         disabled={isSubmitting}
                                     >
                                         {isSubmitting ? 'Đang tạo tài khoản...' : 'Tạo tài khoản'}
